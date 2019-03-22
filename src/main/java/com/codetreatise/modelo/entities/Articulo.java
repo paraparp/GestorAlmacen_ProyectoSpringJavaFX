@@ -27,7 +27,6 @@ public class Articulo implements Serializable {
 	private Productogenerico productogenerico;
 	private String talla;
 	private String codigoBarras;
-	private BigDecimal precioVenta;
 	private int stock;
 	private String foto;
 	private String detalles;
@@ -39,13 +38,12 @@ public class Articulo implements Serializable {
 
 	
 	public Articulo(String color, Productogenerico productogenerico, String talla, String codigoBarras,
-			BigDecimal precioVenta, int stock, String foto, String detalles, List<Lineapedido> lineapedidos) {
+			 int stock, String foto, String detalles, List<Lineapedido> lineapedidos) {
 		this.color = color;
 		this.productogenerico = productogenerico;
 		this.talla = talla;
 		this.codigoBarras = codigoBarras;
 
-		this.precioVenta = precioVenta;
 		this.stock = stock;
 		this.foto = foto;
 		this.detalles = detalles;
@@ -101,14 +99,6 @@ public class Articulo implements Serializable {
 		this.codigoBarras = codigoBarras;
 	}
 
-	@Column(name = "precioVenta")
-	public BigDecimal getPrecioVenta() {
-		return this.precioVenta;
-	}
-
-	public void setPrecioVenta(BigDecimal precioVenta) {
-		this.precioVenta = precioVenta;
-	}
 
 	@Column(name = "stock")
 	public int getStock() {
@@ -156,7 +146,7 @@ public class Articulo implements Serializable {
 	@Override
 	public String toString() {
 		return "Articulo [id=" + id + ", color=" + color + ", productogenerico=" + productogenerico + ", talla=" + talla
-				+ ", codigoBarras=" + codigoBarras + ", precioVenta=" + precioVenta + ", stock=" + stock + ", foto="
+				+ ", codigoBarras=" + codigoBarras +  ", stock=" + stock + ", foto="
 				+ foto + ", detalles=" + detalles + "]";
 	}
 

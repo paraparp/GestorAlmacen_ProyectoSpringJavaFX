@@ -1,18 +1,19 @@
 package com.codetreatise.controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 import com.codetreatise.modelo.entities.Articulo;
 import com.codetreatise.modelo.entities.Productogenerico;
 import com.codetreatise.service.ArticuloService;
 import com.codetreatise.service.ProductoGenericoService;
+import com.codetreatise.util.Util;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -39,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -63,9 +65,6 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	private JFXComboBox<String> cmbTalla;
-
-	@FXML
-	private JFXTextField txtPVenta;
 
 	@FXML
 	private JFXTextArea txtDetalles;
@@ -106,9 +105,6 @@ public class ArticuloController implements Initializable {
 	private TableColumn<Articulo, String> colColor;
 
 	@FXML
-	private TableColumn<Articulo, BigDecimal> colPVenta;
-
-	@FXML
 	private TableColumn<Articulo, Integer> colStock;
 
 	@FXML
@@ -122,6 +118,7 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	private JFXTextField txtBuscaTipo;
+
 	@FXML
 	private JFXButton btnBorrar;
 
@@ -212,7 +209,6 @@ public class ArticuloController implements Initializable {
 		});
 		colTalla.setCellValueFactory(new PropertyValueFactory<>("talla"));
 		colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
-		colPVenta.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
 		colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 		colDetalles.setCellValueFactory(new PropertyValueFactory<>("detalles"));
 
@@ -222,19 +218,27 @@ public class ArticuloController implements Initializable {
 	void deleteArticulo(ActionEvent event) {
 		Articulo articulo = tablaArticulo.getSelectionModel().getSelectedItem();
 
-		articulo.setLineapedidos(null);
-		// articulo.setProductogenerico(null);
+//		articulo.setLineapedidos(null);
+//		articulo.setProductogenerico(null);
 
-		articuloService.save(articulo);
+		// articuloService.save(articulo);
 
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmar borrado");
 		alert.setHeaderText(null);
 		alert.setContentText("¿Deseas borrar el articulo" + articulo.getCodigoBarras() + "?");
-		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
+		Optional<ButtonType> action = alert.showAndWait();
 
-		if (action.get() == ButtonType.OK)
-			articuloService.delete(articulo.getId());
+		if (action.get() == ButtonType.OK) {
+			try {
+				articuloService.delete(articulo.getId());
+
+			} catch (Exception e) {
+				Util.alertaInformacion("Error al intentar eliminar articulo",
+						"Este articulo está referenciado a un pedido, no puede borrarlo sin elimarlo antes del pedido o pedidos");
+			}
+
+		}
 
 		limpiarCampos();
 	}
@@ -243,55 +247,60 @@ public class ArticuloController implements Initializable {
 	void saveArticulo(ActionEvent event) {
 
 		Articulo a = new Articulo();
-		Alert alert = new Alert(AlertType.INFORMATION);
 
 		if (lbId.getText() == null || lbId.getText() == "") {
-			saveNew(a, alert);
+			saveNew(a);
 		} else {
-			saveUpdt(a, alert);
+			saveUpdt(a);
 		}
-		alert.showAndWait();
-		limpiarCampos();
 
 	}
 
-	private void saveNew(Articulo a, Alert alert) {
+	private void saveNew(Articulo a) {
 
-	
-		if (txtCodigo.getText().isEmpty() || cmbTipo.getValue() == null  || txtStock.getText().isEmpty()) {
-			alert.setContentText("Completa al menos el campo de Tipo, Codigo y Stock");
+		if (txtCodigo.getText().isEmpty() || cmbTipo.getValue() == null || txtStock.getText().isEmpty()) {
+			Util.alertaInformacion("Error formulario", "Completa al menos el campo de Tipo, Codigo y Stock");
 
 		} else {
-			
+
+			if (txtStock.getText().matches("\\d+")) {
+				a.setCodigoBarras(txtCodigo.getText());
+				a.setProductogenerico(cmbTipo.getValue());
+				a.setColor(cmbColor.getValue());
+				a.setTalla(cmbTalla.getValue());
+				a.setStock(Integer.parseInt(txtStock.getText()));
+				a.setFoto(txtImagen.getText());
+				a.setDetalles(txtDetalles.getText());
+
+				Articulo newA = articuloService.save(a);
+				Util.alertaInformacion("Info", "Añadido articulo con codigo: " + newA.getCodigoBarras());
+
+				limpiarCampos();
+			} else
+				Util.alertaInformacion("Error formulario", "Introduce un número entero en la cantidad");
+
+		}
+	}
+
+	private void saveUpdt(Articulo a) {
+
+		a = articuloService.findById(Long.parseLong(lbId.getText()));
+
+		if (txtStock.getText().matches("\\d+")) {
 			a.setCodigoBarras(txtCodigo.getText());
 			a.setProductogenerico(cmbTipo.getValue());
 			a.setColor(cmbColor.getValue());
 			a.setTalla(cmbTalla.getValue());
 			a.setStock(Integer.parseInt(txtStock.getText()));
-		
 			a.setFoto(txtImagen.getText());
 			a.setDetalles(txtDetalles.getText());
+			Articulo udtA = articuloService.save(a);
+			Util.alertaInformacion("Info", "Editado articulo con codigo: " + udtA.getCodigoBarras());
+			limpiarCampos();
 
-			Articulo newA = articuloService.save(a);
-			alert.setContentText("Añadido pedido con codigo: " + newA.getCodigoBarras());
-		}
-	}
+		} else
+			Util.alertaInformacion("Error formulario", "Introduce un número entero en la cantidad");
 
-	private void saveUpdt(Articulo a, Alert alert) {
-
-		a = articuloService.findById(Long.parseLong(lbId.getText()));
-
-		a.setCodigoBarras(txtCodigo.getText());
-		a.setProductogenerico(cmbTipo.getValue());
-		a.setColor(cmbColor.getValue());
-		a.setTalla(cmbTalla.getValue());
-		a.setStock(Integer.parseInt(txtStock.getText()));
-
-		a.setFoto(txtImagen.getText());
-		a.setDetalles(txtDetalles.getText());
-		Articulo udtA = articuloService.save(a);
-
-		alert.setContentText("Editado pedido con codigo: " + udtA.getCodigoBarras());
 	}
 
 	@FXML
@@ -305,22 +314,21 @@ public class ArticuloController implements Initializable {
 			txtCodigo.setText(articulo.getCodigoBarras());
 			cmbColor.getSelectionModel().select(articulo.getColor());
 			cmbTalla.getSelectionModel().select(articulo.getTalla());
-			txtPVenta.setText(String.valueOf(articulo.getPrecioVenta()));
 			txtDetalles.setText(articulo.getDetalles());
 			txtStock.setText(String.valueOf(articulo.getStock()));
 			txtImagen.setText(articulo.getFoto());
 		}
 	}
-	
+
 	@FXML
 	void abrirDetalles() throws IOException {
 
 		Stage stage = new Stage();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VerArticulo.fxml"));
 		Parent root = (Parent) loader.load();
-		
+
 		Articulo articulo = tablaArticulo.getSelectionModel().getSelectedItem();
-	
+
 		if (articulo != null) {
 			VerArticuloController verArticuloController = (VerArticuloController) loader.getController();
 			verArticuloController.getArticulo(articulo);
@@ -330,23 +338,25 @@ public class ArticuloController implements Initializable {
 			stage.show();
 
 		} else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText("Selecciona algún articulo de la lista");
-			alert.showAndWait();
+			Util.alertaInformacion("Error", "Selecciona algún articulo de la lista");
+
 		}
 
 	}
 
-
 	@FXML
-	protected void locateFile(ActionEvent event) {
+	protected void locateFile(ActionEvent event) throws IOException {
+
 		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Open File");
-		String file = null;
+		ExtensionFilter fileExtensions = new FileChooser.ExtensionFilter("Imagenes JPG, GIF, PNG o JPEG", "*.jpg",
+				"*.gif", "*.png", "*.jpeg");
+
+		chooser.getExtensionFilters().add(fileExtensions);
+		String file = "";
 		try {
 			file = chooser.showOpenDialog(new Stage()).getCanonicalPath();
-		} catch (IOException e) {
-			file = "";
+		} catch (Exception e) {
+			Util.alertaInformacion("Error al seleccionar imagen", "No has seleccionado una imagen");
 		}
 
 		txtImagen.setText(file);
@@ -376,17 +386,17 @@ public class ArticuloController implements Initializable {
 
 	private void loadCmbMarca() {
 
-//		ObservableList<String> marcas = FXCollections.observableArrayList();
-//		marcas.addAll(prodGenService.findMarcas());
-//		cmbMarca.setItems(marcas);
+		ObservableList<String> marcas = FXCollections.observableArrayList();
+		marcas.addAll(prodGenService.findMarcas());
+		cmbMarca.setItems(marcas);
 
 	}
 
 	private void loadCmbCategoria() {
 
-//		ObservableList<String> categorias = FXCollections.observableArrayList();
-//		categorias.addAll(prodGenService.findCategorias());
-//		cmbCategoria.setItems(categorias);
+		ObservableList<String> categorias = FXCollections.observableArrayList();
+		categorias.addAll(prodGenService.findCategorias());
+		cmbCategoria.setItems(categorias);
 	}
 
 	@FXML
@@ -397,7 +407,6 @@ public class ArticuloController implements Initializable {
 		cmbTipo.getSelectionModel().clearSelection();
 		cmbColor.getSelectionModel().clearSelection();
 		cmbTalla.getSelectionModel().clearSelection();
-		txtPVenta.clear();
 		txtDetalles.clear();
 		txtStock.clear();
 		txtImagen.clear();

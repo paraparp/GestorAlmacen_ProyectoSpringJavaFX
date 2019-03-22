@@ -46,22 +46,16 @@ public class VerArticuloController implements Initializable {
 	}
 
 	public void getArticulo(Articulo articulo) {
-		System.out.println("---> LLegamos a controladorrr ");
 
 		lbNombre.setText(articulo.getProductogenerico().getNombre());
 		lbTipo.setText(articulo.getProductogenerico().getCategoria());
-
 		lbColor.setText(articulo.getColor());
-
 		lbTalla.setText(articulo.getTalla());
-
 		lbStock.setText(String.valueOf(articulo.getStock()));
-
 		lbDetalles.setText(articulo.getDetalles());
-
 		lbCodigo.setText(articulo.getCodigoBarras());
-
 		imgArticulo.setImage(new Image("file:" + articulo.getFoto()));
+	
 
 	}
 

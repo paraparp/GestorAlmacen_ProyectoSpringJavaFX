@@ -17,51 +17,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Group stylesheets="@../../../style/PopUp.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.ArticuloController">
+<Group xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.ArticuloController">
 	<children>
 		<AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="1200.0">
 			<children>
-				<GridPane hgap="1.0" layoutX="14.0" layoutY="82.0" prefHeight="595.0" prefWidth="467.0">
-					<columnConstraints>
+      				<GridPane hgap="1.0" layoutX="14.0" layoutY="82.0" prefHeight="579.0" prefWidth="468.0">
+      					<columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="57.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="79.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="0.0" prefWidth="150.19996337890626" />
+      						<ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="79.0" />
+      						<ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
+      						<ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="0.0" prefWidth="150.19996337890626" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="82.73336181640627" />
-					</columnConstraints>
-					<rowConstraints>
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="43.333343505859375" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="28.0" minHeight="4.0" prefHeight="21.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="34.0" minHeight="8.0" prefHeight="22.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="24.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-					</rowConstraints>
-					<children>
+      					</columnConstraints>
+      					<rowConstraints>
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints maxHeight="43.333343505859375" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      						<RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="33.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="8.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="24.0" minHeight="9.0" percentHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+      					</rowConstraints>
+      					<children>
       						<Label text="Codigo Barras" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <JFXTextField fx:id="txtCodigo" alignment="BOTTOM_LEFT" focusColor="#00cc00" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d8c" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                      <opaqueInsets>
                         <Insets left="20.0" />
                      </opaqueInsets>
                   </JFXTextField>
-                  <JFXButton fx:id="btnGuardar" buttonType="RAISED" onAction="#saveArticulo" prefHeight="26.0" prefWidth="991.0" style="-fx-background-color: #00cc00;" text="Guardar" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="21">
+                  <JFXButton fx:id="btnGuardar" buttonType="RAISED" onAction="#saveArticulo" prefHeight="26.0" prefWidth="991.0" style="-fx-background-color: #00cc00;" text="Guardar" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="17">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -74,7 +71,6 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Precio Venta" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                   <Label text="Color" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label fx:id="lbId" GridPane.columnIndex="4" />
                   <Label text="Talla" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -89,21 +85,16 @@
                      </opaqueInsets>
                   </JFXComboBox>
                   <Label fx:id="lbId" GridPane.columnIndex="4" />
-                  <JFXTextField fx:id="txtPVenta" focusColor="#00cc00" labelFloat="true" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d7d" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="12">
-                     <opaqueInsets>
-                        <Insets left="20.0" />
-                     </opaqueInsets>
-                  </JFXTextField>
-                  <Label text="Detalles" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                  <JFXTextArea fx:id="txtDetalles" focusColor="#00cc00" prefHeight="43.0" prefWidth="334.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d7d" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="16" GridPane.rowSpan="2" />
+                  <Label text="Detalles" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <JFXTextArea fx:id="txtDetalles" focusColor="#00cc00" prefHeight="43.0" prefWidth="334.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d7d" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14" GridPane.rowSpan="2" />
                   <Label text="Stock" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <JFXTextField fx:id="txtStock" focusColor="#00cc00" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d78" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10">
                      <opaqueInsets>
                         <Insets left="20.0" />
                      </opaqueInsets>
                   </JFXTextField>
-                  <Label text="Imagen" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <JFXTextField fx:id="txtImagen" focusColor="#00cc00" onAction="#locateFile" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d78" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14">
+                  <Label text="Imagen" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <JFXTextField fx:id="txtImagen" focusColor="#00cc00" onAction="#locateFile" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d78" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="12">
                      <opaqueInsets>
                         <Insets left="20.0" />
                      </opaqueInsets>
@@ -119,7 +110,7 @@
                      </font>
                   </JFXButton>
                   <JFXComboBox fx:id="cmbTipo" focusColor="#00cc00" prefHeight="25.0" prefWidth="182.0" unFocusColor="#8e948e" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <JFXButton fx:id="btnImagen" buttonType="RAISED" onAction="#locateFile" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Buscar" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="14">
+                  <JFXButton fx:id="btnImagen" buttonType="RAISED" onAction="#locateFile" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Buscar" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="12">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -127,10 +118,10 @@
                         <Font name="Calibri Bold" size="12.0" />
                      </font>
                   </JFXButton>
-					</children>
-				</GridPane>
-				<AnchorPane layoutX="503.0" layoutY="53.0" prefHeight="615.0" prefWidth="881.0">
-					<children>
+      					</children>
+      				</GridPane>
+      				<AnchorPane layoutX="503.0" layoutY="53.0" prefHeight="615.0" prefWidth="881.0">
+      					<children>
                   						<TableView fx:id="tablaArticulo" editable="true" layoutX="1.0" layoutY="75.0" onMouseClicked="#seleccionarArticulo" prefHeight="463.0" prefWidth="881.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
                   							<columns>
                   								<TableColumn fx:id="colId" prefWidth="83.0" text="ID" />
@@ -140,7 +131,6 @@
                         <TableColumn fx:id="colMarca" maxWidth="4000.0" prefWidth="114.0" text="Marca" />
                         <TableColumn fx:id="colTalla" maxWidth="6000.0" prefWidth="190.66671752929688" text="Talla" />
                         <TableColumn fx:id="colColor" maxWidth="6000.0" prefWidth="190.66671752929688" text="Color" />
-                        <TableColumn fx:id="colPVenta" maxWidth="6000.0" prefWidth="190.66671752929688" text="Precio Venta" />
                         <TableColumn fx:id="colStock" maxWidth="6000.0" prefWidth="190.66671752929688" text="Stock" />
                         <TableColumn fx:id="colDetalles" maxWidth="6000.0" prefWidth="190.66671752929688" text="Detalles" />
                   							</columns>
@@ -167,10 +157,10 @@
                         <Font name="Calibri Bold" size="12.0" />
                      </font>
                   </JFXButton>
-
-				
-					</children>
-				</AnchorPane>
+      
+                  				
+                  					</children>
+      				</AnchorPane>
 
 			</children>
 		</AnchorPane>

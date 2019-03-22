@@ -42,24 +42,22 @@
       <AnchorPane />
       <Pane layoutX="1392.0" layoutY="-7.0" prefHeight="39.0" prefWidth="65.0">
          <children>
-            <JFXButton fx:id="btnSalir" alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" minWidth="32.0" onAction="#salir" prefHeight="26.0" prefWidth="32.0" ripplerFill="#ffffff00" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="btnSalir" alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" minWidth="53.0" onAction="#salir" prefHeight="25.0" prefWidth="53.0" ripplerFill="#ffffff00" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="17.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/iconos/icon%20-%20copia.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </ImageView>
-               </graphic>
             </JFXButton>
+            <ImageView fitHeight="26.0" fitWidth="17.0" focusTraversable="true" layoutX="18.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/iconos/icon%20-%20copia.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
         
          </children>
       </Pane>

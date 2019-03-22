@@ -21,18 +21,18 @@ INSERT INTO `almacen`.`pedido` (`codigo`, `fecha_pedido`, `fecha_recibido`, `gas
 
 
 
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5101018976781', '50', '1', '1', 'Rojo', 'L');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5019876787654', '60', '1', '2', 'Verde', '44');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('7101987101981', '55', '1', '3', 'Azul', 'XL');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('8091910912112', '45', '1', '1', 'Verde', 'M');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('9871904723453', '30', '1', '1', 'Rojo', 'S');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('5656756475756', '70', '1', '2', 'Amarillo', '41');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('510106768976781', '50', '1', '1', 'Rojo', 'M');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('50198776787654', '60', '1', '2', 'Naranja', '39');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('71019876771981', '55', '1', '3', 'Azul', 'L');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('809191676912112', '45', '1', '1', 'Verde', 'XS');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('987190476763453', '30', '1', '1', 'Rojo', 'S');
-INSERT INTO `almacen`.`articulo` (`codigo_barras`, `precio_venta`, `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('56567567675756', '70', '1', '2', 'Rosa', '41');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5101018976781',  '1', '1', 'Rojo', 'L');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5019876787654',  '1', '2', 'Verde', '44');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('7101987101981', '1', '3', 'Azul', 'XL');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('8091910912112',  '1', '1', 'Verde', 'M');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('9871904723453',  '1', '1', 'Rojo', 'S');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('5656756475756',  '1', '2', 'Amarillo', '41');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('510106768976781',  '1', '1', 'Rojo', 'M');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('50198776787654',  '1', '2', 'Naranja', '39');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`, ` `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('71019876771981', '1', '3', 'Azul', 'L');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('809191676912112',  '1', '1', 'Verde', 'XS');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('987190476763453',  '1', '1', 'Rojo', 'S');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`)  VALUES ('56567567675756',  '1', '2', 'Rosa', '41');
 
 
 

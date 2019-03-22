@@ -327,7 +327,7 @@ public class LineaPedidoController implements Initializable {
 		a.setColor(cmbColor.getValue());
 		a.setTalla(cmbTalla.getValue());
 		a.setStock(Integer.parseInt(txtCantidad.getText()));
-		a.setPrecioVenta(new BigDecimal(txtPrecio.getText()));
+
 		a.setFoto(txtImagen.getText());
 		a.setDetalles(txtDetalles.getText());
 		Articulo udtA = articuloService.save(a);
@@ -345,7 +345,6 @@ public class LineaPedidoController implements Initializable {
 		txtCodigo.setText(lineapedido.getArticulo().getCodigoBarras());
 		cmbColor.getSelectionModel().select(lineapedido.getArticulo().getColor());
 		cmbTalla.getSelectionModel().select(lineapedido.getArticulo().getTalla());
-		txtPrecio.setText(String.valueOf(lineapedido.getArticulo().getPrecioVenta()));
 		txtDetalles.setText(lineapedido.getArticulo().getDetalles());
 		txtCantidad.setText(String.valueOf(lineapedido.getCantidad()));
 		txtImagen.setText(lineapedido.getArticulo().getFoto());
