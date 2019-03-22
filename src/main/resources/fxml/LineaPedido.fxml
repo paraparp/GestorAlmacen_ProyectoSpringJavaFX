@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Group  xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.LineaPedidoController">
+	<children>
+		<AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="1200.0">
+			<children>
+				<GridPane hgap="1.0" layoutX="-24.0" layoutY="106.0" prefHeight="409.0" prefWidth="556.0">
+					<columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="57.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="79.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="0.0" prefWidth="150.19996337890626" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="82.73336181640627" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="43.333343505859375" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="28.0" minHeight="4.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="8.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+      						<Label text="Codigo Barras" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <JFXTextField fx:id="txtCodigo" alignment="BOTTOM_LEFT" focusColor="#00cc00" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d8c" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXTextField>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="406.0" text="AÑADIR ARTICULO" textFill="#27cd09" GridPane.columnIndex="1" GridPane.columnSpan="4">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Precio Unidad" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <Label text="Color" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="lbId" GridPane.columnIndex="4" />
+                  <Label text="Talla" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <JFXComboBox fx:id="cmbColor" editable="true" prefHeight="25.0" prefWidth="336.0" unFocusColor="#5254525c" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXComboBox>
+                  <JFXComboBox fx:id="cmbTalla" editable="true" focusColor="#00cc00" prefHeight="25.0" prefWidth="338.0" unFocusColor="#484a4878" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXComboBox>
+                  <Label fx:id="lbId" GridPane.columnIndex="4" />
+                  <JFXTextField fx:id="txtPrecio" focusColor="#00cc00" labelFloat="true" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d7c" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="12">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXTextField>
+                  <Label text="Cantidad recibida" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <JFXTextField fx:id="txtCantidad" focusColor="#00cc00" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d78" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXTextField>
+                  <Label text="Imagen" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <JFXTextField fx:id="txtImagen" focusColor="#00cc00" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d79" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14">
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtBuscaTipo" focusColor="#00cc00" onKeyPressed="#filtrarTipo" prefHeight="25.0" prefWidth="132.0" promptText="filtrar..." style="-fx-background-color: #e7fde7;" unFocusColor="#4d4d4d8c" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Tipo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="cmbTipo" prefHeight="25.0" prefWidth="182.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <JFXButton fx:id="btnImagen" buttonType="RAISED" onAction="#locateFile" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Buscar" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="14">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXTextArea fx:id="txtDetalles" focusColor="#00cc00" prefHeight="49.0" prefWidth="161.0" unFocusColor="#5757577d" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="16" GridPane.rowSpan="2" />
+                  <Label text="Detalles" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+					</children>
+				</GridPane>
+				<AnchorPane layoutX="532.0" layoutY="75.0" prefHeight="606.0" prefWidth="877.0">
+					<children>
+                  						<TableView fx:id="tablaLineasPedido" editable="true" layoutX="6.0" layoutY="75.0" onMouseClicked="#seleccionarArticulo" prefHeight="434.0" prefWidth="785.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
+                  							<columns>
+                  								<TableColumn fx:id="colId" prefWidth="83.0" text="ID Linea" />
+                  								<TableColumn fx:id="colCodigo" maxWidth="4000.0" minWidth="50.0" prefWidth="170.0" text="Codigo Barras" />
+                  								<TableColumn fx:id="colNombre" maxWidth="6000.0" prefWidth="190.66671752929688" text="Nombre" />
+                  								<TableColumn fx:id="colCategoria" maxWidth="4000.0" prefWidth="87.0" text="Categoria" />
+                        <TableColumn fx:id="colMarca" maxWidth="4000.0" prefWidth="114.0" text="Marca" />
+                        <TableColumn fx:id="colTalla" maxWidth="6000.0" prefWidth="190.66671752929688" text="Talla" />
+                        <TableColumn fx:id="colColor" maxWidth="6000.0" prefWidth="190.66671752929688" text="Color" />
+                        <TableColumn fx:id="colPrecio" maxWidth="6000.0" prefWidth="190.66671752929688" text="Precio/unidad" />
+                        <TableColumn fx:id="colCantidad" maxWidth="6000.0" prefWidth="190.66671752929688" text="Cantidad" />
+                  							</columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  						</TableView>
+                  <JFXTextField fx:id="txtBuscar" focusColor="#00cc00" layoutX="221.0" layoutY="31.0" onKeyTyped="#filtrarArticulos" prefHeight="25.0" prefWidth="264.0" promptText="Filtrar articulo..." style="-fx-background-color: #e7fde7;" unFocusColor="#dddddd" />
+                  <JFXComboBox fx:id="cmbPedido" layoutX="223.0" layoutY="1.0" onAction="#cargarListaPedido" prefHeight="25.0" prefWidth="264.0" promptText="Selecciona un pedido" />
+
+				
+					</children>
+				</AnchorPane>
+            <AnchorPane layoutX="37.0" layoutY="618.4000244140625" />
+            <GridPane layoutX="62.0" layoutY="544.0" prefHeight="30.0" prefWidth="460.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.4000244140625" minWidth="10.0" prefWidth="133.4000244140625" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.19998168945312" minWidth="10.0" prefWidth="52.39996032714842" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.2000244140625" minWidth="10.0" prefWidth="139.20001220703125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.199951171875" minWidth="10.0" prefWidth="63.19998779296873" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.20001220703125" minWidth="10.0" prefWidth="131.20001220703125" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXButton fx:id="btnBorrar" buttonType="RAISED" onAction="#limpiarCampos" prefHeight="26.0" prefWidth="105.0" style="-fx-background-color: #00cc00;" text="Borrar Campos" textFill="WHITE" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnGuardar" buttonType="RAISED" onAction="#saveArticulo" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #00cc00;" text="Guardar" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEliminar" buttonType="RAISED" onAction="#deleteArticulo" prefHeight="26.0" prefWidth="991.0" style="-fx-background-color: #00cc00;" text="Eliminar" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </GridPane>
+
+			</children>
+		</AnchorPane>
+      <VBox fx:id="top" style="-fx-background-color: #00cc00; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
+         <children>
+      				<Label alignment="CENTER" prefHeight="50.0" prefWidth="1410.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="EDITAR PEDIDO" textFill="WHITE">
+      					<font>
+      						<Font name="System Bold" size="25.0" />
+      					</font>
+      				</Label>
+         </children>
+      </VBox>
+	</children>
+</Group>

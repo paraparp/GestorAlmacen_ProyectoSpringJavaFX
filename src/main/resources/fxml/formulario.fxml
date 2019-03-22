@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="674.0" prefWidth="875.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.FormController">
+
+	<top>
+		<HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="643.0" style="-fx-background-color: #c6c6c6;" BorderPane.alignment="CENTER">
+			<children>
+				<Text fill="#c77e42" lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formulario Clientes" textAlignment="RIGHT" textOrigin="CENTER" wrappingWidth="608.03515625">
+					<font>
+						<Font name="Calibri Bold" size="40.0" />
+					</font>
+				</Text>
+			</children>
+		</HBox>
+	</top>
+	<center>
+		<HBox prefHeight="535.0" prefWidth="825.0" BorderPane.alignment="CENTER">
+			<children>
+				<GridPane prefHeight="577.0" prefWidth="692.0" style="-fx-background-color: #d9d9d9;">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="124.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="164.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="466.0" minWidth="10.0" prefWidth="386.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="397.0" minWidth="10.0" prefWidth="105.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="357.0" text="Codigo:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="1">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" layoutX="10.0" layoutY="28.0" prefHeight="17.0" prefWidth="357.0" text="Creado:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="4">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" layoutX="10.0" layoutY="28.0" prefHeight="17.0" prefWidth="357.0" text="Apellidos:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="3">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" layoutX="10.0" layoutY="28.0" prefHeight="17.0" prefWidth="357.0" text="Nombre:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="2">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" layoutX="10.0" layoutY="254.0" prefHeight="17.0" prefWidth="357.0" text="Email:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="5">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" layoutX="10.0" layoutY="326.0" prefHeight="17.0" prefWidth="357.0" text="Foto:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="6">
+							<font>
+								<Font name="Calibri Light" size="18.0" />
+							</font>
+						</Label>
+						<JFXDatePicker fx:id="dateCreate" defaultColor="#d77c14" editable="false" prefHeight="29.0" prefWidth="508.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+						<JFXTextField fx:id="txtId" unFocusColor="#a85309" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+						<JFXTextField fx:id="txtNombre" unFocusColor="#a85309" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+						<JFXTextField fx:id="txtApellidos" unFocusColor="#a85309" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+						<JFXTextField fx:id="txtEmail" unFocusColor="#a85309" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+						<JFXTextField fx:id="txtFoto" prefHeight="25.0" prefWidth="0.0" unFocusColor="#a85309" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <padding>
+                        <Insets left="60.0" />
+                     </padding></JFXTextField>
+                  <JFXButton fx:id="btnFoto" contentDisplay="CENTER" onAction="#openFileChooser" opacity="0.61" style="-fx-background-color: #999999;" text="Añadir" textFill="#834001" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+					</children>
+				</GridPane>
+			</children>
+		</HBox>
+	</center>
+	<right>
+		<AnchorPane prefHeight="574.0" prefWidth="205.0" style="-fx-background-color: #999999;" BorderPane.alignment="CENTER">
+			<children>
+				<JFXButton fx:id="btnCancelar" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="339.0" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Cancelar" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+				<JFXButton fx:id="btnActualizar" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="273.0" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Actualizar" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+				<JFXButton fx:id="btnNuevo" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="78.0" onAction="#list" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Nuevo" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+				<JFXButton fx:id="btnGuardar" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="144.0" onAction="#saveCliente" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Guardar" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+				<JFXButton fx:id="btnModificar" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="209.0" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Modificar" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+				<JFXButton fx:id="btnSalir" blendMode="SRC_ATOP" buttonType="RAISED" layoutX="13.0" layoutY="468.0" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #b3b3b3;" text="Salir" textFill="#9e5706" textOverrun="CLIP">
+					<font>
+						<Font name="Calibri Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<effect>
+						<DropShadow blurType="GAUSSIAN" color="#e80b0b" height="118.85" radius="59.6675" spread="0.41" width="121.82" />
+					</effect>
+				</JFXButton>
+			</children>
+		</AnchorPane>
+	</right>
+</BorderPane>

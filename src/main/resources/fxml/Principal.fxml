@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane stylesheets="@../styles/tabBar.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PrincipalController">
+   <children>
+		<JFXTabPane blendMode="COLOR_BURN" cacheHint="SCALE_AND_ROTATE" prefHeight="710.0" prefWidth="1471.0">
+			<tabs>
+				<Tab fx:id="tabPrincipal" text="Principal">
+					<fx:include fx:id="panePrincipal" source="Inicio.fxml" />
+				</Tab>
+				<Tab fx:id="tabArticulos" text="Articulos">
+					<fx:include fx:id="paneArticulo" source="Articulo.fxml" />
+				</Tab>
+				<Tab fx:id="tabPedidos" text="Pedidos">
+					<fx:include fx:id="panePedidos" source="Pedidos.fxml" />
+				</Tab>
+            <Tab fx:id="tabEditarPedido" text="Editar Pedido">
+               <content>
+                  <fx:include fx:id="paneEditarPedido" source="LineaPedido.fxml" />
+               </content>
+            </Tab>
+				<Tab fx:id="tabGenericos" text="Genericos">
+					<fx:include fx:id="paneGenericos" source="ProductoGenerico.fxml" />
+				</Tab>
+				<Tab fx:id="tabProveedores" text="Proveedores">
+					<fx:include fx:id="paneProveedores" source="Proveedores.fxml" />
+				</Tab>
+				<Tab fx:id="tabEmpleados" text="Empleados">
+					<fx:include fx:id="paneEmpleados" source="Empleados.fxml" />
+				</Tab>
+			</tabs>
+		</JFXTabPane>
+      <AnchorPane />
+      <Pane layoutX="1392.0" layoutY="-7.0" prefHeight="39.0" prefWidth="65.0">
+         <children>
+            <JFXButton fx:id="btnSalir" alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" minWidth="32.0" onAction="#salir" prefHeight="26.0" prefWidth="32.0" ripplerFill="#ffffff00" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="17.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/iconos/icon%20-%20copia.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+        
+         </children>
+      </Pane>
+   </children>
+</Pane>
