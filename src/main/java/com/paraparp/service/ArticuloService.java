@@ -15,8 +15,9 @@ public interface ArticuloService {
 	public Set<String> findColores();
 	public List<Articulo> findByParam(String param);
 	public Articulo findByCodigoBarras(String codigo_barras);
-	List<Articulo> findByCategoria(String categoria);
-	List<Articulo> findByMarca(String marca);
+	public List<Articulo> findByCategoria(String categoria);
+	public List<Articulo> findByMarca(String marca);
+
 
 
 

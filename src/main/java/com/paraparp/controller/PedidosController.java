@@ -3,7 +3,6 @@ package com.paraparp.controller;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -15,27 +14,34 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.paraparp.modelo.entities.Articulo;
 import com.paraparp.modelo.entities.Empleado;
 import com.paraparp.modelo.entities.Pedido;
+import com.paraparp.modelo.entities.Productogenerico;
 import com.paraparp.modelo.entities.Proveedor;
 import com.paraparp.service.EmpleadoService;
 import com.paraparp.service.PedidoService;
 import com.paraparp.service.ProveedorService;
 import com.paraparp.util.Util;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 @Controller
 public class PedidosController implements Initializable {
@@ -89,7 +95,7 @@ public class PedidosController implements Initializable {
 	private TableColumn<Pedido, Double> colGastos;
 
 	@FXML
-	private TableColumn<Pedido, Double> colCoste;
+	private TableColumn<Pedido, String> colCoste;
 
 	@FXML
 	private TableColumn<Pedido, String> colProveedor;
@@ -109,6 +115,8 @@ public class PedidosController implements Initializable {
 	private ProveedorService proveedorService;
 
 	private ObservableList<Pedido> pedidosList = FXCollections.observableArrayList();
+	private ObservableList<Empleado> empleadosList = FXCollections.observableArrayList();
+	private ObservableList<Proveedor> proveedoresList = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -124,9 +132,6 @@ public class PedidosController implements Initializable {
 
 	@FXML
 	void editarPedido(ActionEvent event) {
-		
-		
-		
 
 	}
 
@@ -188,46 +193,59 @@ public class PedidosController implements Initializable {
 		alert.setTitle("Confirmar borrado");
 		alert.setHeaderText(null);
 		alert.setContentText("¿Deseas borrar al empleado " + ped.getCodigo() + "?");
-		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
+		Optional<ButtonType> action = alert.showAndWait();
 
 		if (action.get() == ButtonType.OK)
-			pedidoService.delete(ped.getId());
+			try {
+				pedidoService.delete(ped.getId());
+			} catch (Exception ex) {
+				Util.alertaInformacion("Error al intentar eliminar pedido",
+						"Este pedido contiene artículos, no puede ser eliminado sin elimar antes todos los articulos del pedido");
+			}
 
 		limpiarCampos();
+
 	}
 
 	private void loadCmbEmpleados() {
 
-		ObservableList<Empleado> emps = FXCollections.observableArrayList();
-		emps.addAll(empleadoService.findAll());
-		CmbEmpleado.setItems(emps);
+		empleadosList.addAll(empleadoService.findAll());
+		CmbEmpleado.setItems(empleadosList);
 
 	}
 
 	private void loadCmbProveedores() {
 
-		ObservableList<Proveedor> provs = FXCollections.observableArrayList();
-		provs.addAll(proveedorService.findAll());
-		CmbProveedor.setItems(provs);
+		proveedoresList.addAll(proveedorService.findAll());
+		CmbProveedor.setItems(proveedoresList);
 	}
 
 	@FXML
 	void seleccionarPedido(MouseEvent event) {
 
-		Pedido ped = tablaPedidos.getSelectionModel().getSelectedItem();
-		if (ped != null) {
+		Pedido pedido = tablaPedidos.getSelectionModel().getSelectedItem();
+		if (pedido != null) {
 
-			lbId.setText(Long.toString(ped.getId()));
+			lbId.setText(Long.toString(pedido.getId()));
 
-			txtCodigo.setText(ped.getCodigo());
-			datePedido.setValue(Util.DateToLocalDate(ped.getFechaPedido()));
-			dateRecibido.setValue(Util.DateToLocalDate(ped.getFechaRecibido()));
-			txtGastos.setText((ped.getGastos().toString()));
-			CmbProveedor.getSelectionModel().select(ped.getProveedor());
+			txtCodigo.setText(pedido.getCodigo());
+			datePedido.setValue(Util.DateToLocalDate(pedido.getFechaPedido()));
+			dateRecibido.setValue(Util.DateToLocalDate(pedido.getFechaRecibido()));
+			txtGastos.setText((pedido.getGastos().toString()));
+			
+			for (Empleado empleado : empleadosList) {
+				if (empleado.getId() == pedido.getEmpleado().getId())
+					CmbEmpleado.getSelectionModel().select(empleado);
+			}
+			
+			for (Proveedor proveedor : proveedoresList) {
+				if (proveedor.getId() == pedido.getProveedor().getId())
+					CmbProveedor.getSelectionModel().select(proveedor);
+			}
 
-			CmbEmpleado.getSelectionModel().select(ped.getEmpleado());
 		}
 	}
+	
 
 	private void cargarColumnas() {
 
@@ -236,7 +254,16 @@ public class PedidosController implements Initializable {
 		colFechaP.setCellValueFactory(new PropertyValueFactory<>("fechaPedido"));
 		colFechaR.setCellValueFactory(new PropertyValueFactory<>("fechaRecibido"));
 		colGastos.setCellValueFactory(new PropertyValueFactory<>("gastos"));
-		colCoste.setCellValueFactory(new PropertyValueFactory<>("costeTotal"));
+//
+//		colCoste.setCellValueFactory(new Callback<CellDataFeatures<Pedido, String>, ObservableValue<String>>() {
+//			public ObservableValue<String> call(CellDataFeatures<Pedido, BigDecimal> pedido) {
+//				return new SimpleStringProperty(String.valueOf(pedidoService.costeTotal(pedido)));
+//			}
+//		});
+//	
+		
+		
+		
 		colProveedor.setCellValueFactory(new PropertyValueFactory<>("empleado"));
 		colEmpleado.setCellValueFactory(new PropertyValueFactory<>("proveedor"));
 	}

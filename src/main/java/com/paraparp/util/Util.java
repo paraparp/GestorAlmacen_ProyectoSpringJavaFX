@@ -4,10 +4,15 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.paraparp.Main;
+import com.paraparp.modelo.entities.Productogenerico;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 public class Util {
 	
@@ -33,6 +38,22 @@ public class Util {
 		
 	}
 	
+	public static String imageChooser() {
+		FileChooser chooser = new FileChooser();
+		ExtensionFilter fileExtensions = new FileChooser.ExtensionFilter("Imagenes JPG, GIF, PNG o JPEG", "*.jpg",
+				"*.gif", "*.png", "*.jpeg");
+
+		chooser.getExtensionFilters().add(fileExtensions);
+		String filePath = "";
+		try {
+			filePath = chooser.showOpenDialog(new Stage()).getCanonicalPath();
+		} catch (Exception e) {
+			Util.alertaInformacion("Error al seleccionar imagen", "No has seleccionado una imagen");
+		}
+
+		return filePath;
+	}
 	
+
 
 }

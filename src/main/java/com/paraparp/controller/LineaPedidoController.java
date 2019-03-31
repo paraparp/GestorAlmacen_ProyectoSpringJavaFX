@@ -1,6 +1,5 @@
 package com.paraparp.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Optional;
@@ -21,6 +20,7 @@ import com.paraparp.service.ArticuloService;
 import com.paraparp.service.LineaPedidoService;
 import com.paraparp.service.PedidoService;
 import com.paraparp.service.ProductoGenericoService;
+import com.paraparp.util.Util;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -39,8 +39,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 @Controller
@@ -63,6 +61,7 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXComboBox<Pedido> cmbPedido;
+	
 	@FXML
 	private JFXTextField txtPrecio;
 
@@ -74,6 +73,7 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXTextField txtImagen;
+	
 	@FXML
 	private JFXButton btnGuardar;
 
@@ -115,12 +115,18 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXTextField txtBuscaTipo;
+	
 	@FXML
 	private JFXButton btnBorrar;
+	
 	@FXML
 	private JFXButton btnImagen;
+	
 	@FXML
 	private JFXComboBox<Productogenerico> cmbTipo;
+
+	@FXML
+	private Label lbCostePedido;
 
 	@Autowired
 	private ArticuloService articuloService;
@@ -130,18 +136,25 @@ public class LineaPedidoController implements Initializable {
 
 	@Autowired
 	private PedidoService pedidoService;
+	
 	@Autowired
 	private LineaPedidoService lineaPedidoService;
+	
+	private Articulo articulo;
 
 	private ObservableList<Lineapedido> lineasPedidoList = FXCollections.observableArrayList();
+	private ObservableList<String> coloresList = FXCollections.observableArrayList();
+	private ObservableList<String> tallasList = FXCollections.observableArrayList();
+	private ObservableList<Productogenerico> tiposList = FXCollections.observableArrayList();
+	private ObservableList<Pedido> pedidosList = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		loadCmbTipo();
 		loadCmbColor();
 		loadCmbTalla();
 		loadCmbPedido();
-
 		cargarColumnas();
 
 		tablaLineasPedido.setItems(lineasPedidoList);
@@ -253,22 +266,22 @@ public class LineaPedidoController implements Initializable {
 	@FXML
 	void saveArticulo(ActionEvent event) {
 
-		Articulo a = new Articulo();
+		articulo = new Articulo();
 		Alert alert = new Alert(AlertType.INFORMATION);
 
 		if (lbId.getText() == null || lbId.getText() == "") {
 
-			saveNew(a, alert);
+			saveNew(articulo, alert);
 
 		} else {
-			saveUpdt(a, alert);
+			saveUpdt(articulo, alert);
 		}
 		alert.showAndWait();
 		// limpiarCampos();
 
 	}
 
-	private void saveNew(Articulo a, Alert alert) {
+	private void saveNew(Articulo articulo, Alert alert) {
 
 		Lineapedido lp = new Lineapedido();
 
@@ -276,42 +289,35 @@ public class LineaPedidoController implements Initializable {
 		lp.setCantidad(Integer.parseInt(txtCantidad.getText()));
 		lp.setPrecio(new BigDecimal(txtPrecio.getText()));
 
-		a.setCodigoBarras(txtCodigo.getText());
+		articulo.setCodigoBarras(txtCodigo.getText());
 
-		a.setFoto(txtImagen.getText());
-		System.out.println("1");
+		articulo.setFoto(txtImagen.getText());
 
 		if (txtCodigo.getText().isEmpty()) {
 			alert.setContentText("Completa al menos el campo  Codigo");
-			System.out.println("2");
 		} else {
-			System.out.println("3");
 			// Se busca el codigo de barras y si no existe se crea un articulo nuevo
-			if (articuloService.findByCodigoBarras(a.getCodigoBarras()).getId() != null) {
+			if (articuloService.findByCodigoBarras(articulo.getCodigoBarras()).getId() != null) {
 
-				System.out.println("5");
-				a = articuloService.findByCodigoBarras(a.getCodigoBarras());
-				a.actualizarStock(Integer.parseInt(txtCantidad.getText()));
+				articulo = articuloService.findByCodigoBarras(articulo.getCodigoBarras());
+				articulo.actualizarStock(Integer.parseInt(txtCantidad.getText()));
 
 			} else {
 
-				a.setCodigoBarras(txtCodigo.getText());
-				a.setProductogenerico(cmbTipo.getValue());
-				a.setColor(cmbColor.getValue());
-				a.setTalla(cmbTalla.getValue());
-				a.setStock(Integer.parseInt(txtCantidad.getText()));
-				System.out.println("4");
-				System.out.println(a);
+				articulo.setCodigoBarras(txtCodigo.getText());
+				articulo.setProductogenerico(cmbTipo.getValue());
+				articulo.setColor(cmbColor.getValue());
+				articulo.setTalla(cmbTalla.getValue());
+				articulo.setStock(Integer.parseInt(txtCantidad.getText()));
 
 			}
-			System.out.println("6");
-			Articulo newA = articuloService.save(a);
-			lp.setArticulo(a);
+			Articulo newA = articuloService.save(articulo);
+			lp.setArticulo(articulo);
 			Lineapedido newLp = lineaPedidoService.save(lp);
 
-			alert.setContentText("Añadido a linea pedido: " + a.getProductogenerico().getNombre() + ". Talla: "
-					+ a.getTalla() + ".Color: " + a.getColor() + ". \n=> Cantidad: " + newLp.getCantidad()
-					+ " (Nuevo stock total: " + a.getStock() + ")");
+			alert.setContentText("Añadido a linea pedido: " + articulo.getProductogenerico().getNombre() + ". Talla: "
+					+ articulo.getTalla() + ".Color: " + articulo.getColor() + ". \n=> Cantidad: " + newLp.getCantidad()
+					+ " (Nuevo stock total: " + articulo.getStock() + ")");
 		}
 
 		cargarListaPedido();
@@ -327,7 +333,6 @@ public class LineaPedidoController implements Initializable {
 		a.setColor(cmbColor.getValue());
 		a.setTalla(cmbTalla.getValue());
 		a.setStock(Integer.parseInt(txtCantidad.getText()));
-
 		a.setFoto(txtImagen.getText());
 		a.setDetalles(txtDetalles.getText());
 		Articulo udtA = articuloService.save(a);
@@ -341,58 +346,52 @@ public class LineaPedidoController implements Initializable {
 		Lineapedido lineapedido = tablaLineasPedido.getSelectionModel().getSelectedItem();
 
 		lbId.setText(Long.toString(lineapedido.getId()));
-		cmbTipo.getSelectionModel().select(lineapedido.getArticulo().getProductogenerico());
 		txtCodigo.setText(lineapedido.getArticulo().getCodigoBarras());
 		cmbColor.getSelectionModel().select(lineapedido.getArticulo().getColor());
 		cmbTalla.getSelectionModel().select(lineapedido.getArticulo().getTalla());
 		txtDetalles.setText(lineapedido.getArticulo().getDetalles());
+		txtPrecio.setText(String.valueOf(lineapedido.getPrecio()));
 		txtCantidad.setText(String.valueOf(lineapedido.getCantidad()));
 		txtImagen.setText(lineapedido.getArticulo().getFoto());
+
+		for (Productogenerico productogenerico : tiposList) {
+			if (lineapedido.getArticulo().getProductogenerico().getId() == productogenerico.getId())
+				cmbTipo.getSelectionModel().select(productogenerico);
+		}
 
 	}
 
 	@FXML
 	protected void locateFile(ActionEvent event) {
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Open File");
-		String file = null;
-		try {
-			file = chooser.showOpenDialog(new Stage()).getCanonicalPath();
-		} catch (IOException e) {
-			file = "";
-		}
 
-		txtImagen.setText(file);
+		String filePath = Util.imageChooser();
+
+		txtImagen.setText(filePath);
 	}
 
 	private void loadCmbPedido() {
-
-		ObservableList<Pedido> pedidos = FXCollections.observableArrayList();
-		pedidos.addAll(pedidoService.findAll());
-		cmbPedido.setItems(pedidos);
-
+	
+		pedidosList.addAll(pedidoService.findAll());
+		cmbPedido.setItems(pedidosList);
 	}
 
 	private void loadCmbTipo() {
-
-		ObservableList<Productogenerico> tipos = FXCollections.observableArrayList();
-		tipos.addAll(prodGenService.findAll());
-		cmbTipo.setItems(tipos);
-
+		
+		tiposList.addAll(prodGenService.findAll());
+		cmbTipo.setItems(tiposList);
 	}
 
 	private void loadCmbTalla() {
-
-		ObservableList<String> tallas = FXCollections.observableArrayList();
-		tallas.addAll(articuloService.findTallas());
-		cmbTalla.setItems(tallas);
+		
+		tallasList.addAll(articuloService.findTallas());
+		cmbTalla.setItems(tallasList);
 	}
 
 	private void loadCmbColor() {
 
-		ObservableList<String> colores = FXCollections.observableArrayList();
-		colores.addAll(articuloService.findColores());
-		cmbColor.setItems(colores);
+		
+		coloresList.addAll(articuloService.findColores());
+		cmbColor.setItems(coloresList);
 	}
 
 	@FXML
@@ -403,6 +402,11 @@ public class LineaPedidoController implements Initializable {
 		lineasPedidoList.addAll(lineaPedidoService.findLineasPedido(cmbPedido.getValue().getId()));
 
 		tablaLineasPedido.setItems(lineasPedidoList);
+
+		String costeTotalPedido = String.valueOf(pedidoService.costeTotal(cmbPedido.getValue()));
+		
+		lbCostePedido.setText("Coste total del pedido selecionado: " + costeTotalPedido);
+
 	}
 
 	@FXML
@@ -419,7 +423,6 @@ public class LineaPedidoController implements Initializable {
 		txtImagen.clear();
 
 		cargarArticulos();
-
 	}
 
 }

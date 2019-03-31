@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -32,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -39,8 +39,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -74,6 +72,7 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	private JFXTextField txtImagen;
+
 	@FXML
 	private JFXButton btnGuardar;
 
@@ -139,6 +138,16 @@ public class ArticuloController implements Initializable {
 
 	private ObservableList<Articulo> articuloList = FXCollections.observableArrayList();
 
+	private ObservableList<String> tallasList = FXCollections.observableArrayList();
+
+	private ObservableList<String> coloresList = FXCollections.observableArrayList();
+
+	private ObservableList<String> marcasList = FXCollections.observableArrayList();
+	
+	private ObservableList<Productogenerico> tiposList = FXCollections.observableArrayList();
+
+	private Articulo articulo;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -157,6 +166,7 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	void filtrarTipo(KeyEvent event) {
+
 		String filtroTipo = txtBuscaTipo.getText().toLowerCase();
 		cmbTipo.getSelectionModel().clearSelection();
 
@@ -168,13 +178,13 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	void filtrarArticulos(KeyEvent event) {
+
 		articuloList.clear();
 		String filtro = txtBuscar.getText().toLowerCase();
 
-		ObservableList<Articulo> articuloListFiltered = FXCollections
-				.observableArrayList(articuloService.findByParam(filtro));
+		articuloList = FXCollections.observableArrayList(articuloService.findByParam(filtro));
 
-		tablaArticulo.setItems(articuloListFiltered);
+		tablaArticulo.setItems(articuloList);
 
 	}
 
@@ -183,11 +193,8 @@ public class ArticuloController implements Initializable {
 
 		articuloList.clear();
 		String filtro = cmbCategoria.getSelectionModel().getSelectedItem();
-
-		ObservableList<Articulo> articuloListFiltered = FXCollections
-				.observableArrayList(articuloService.findByCategoria(filtro));
-
-		tablaArticulo.setItems(articuloListFiltered);
+		articuloList = FXCollections.observableArrayList(articuloService.findByCategoria(filtro));
+		tablaArticulo.setItems(articuloList);
 	}
 
 	@FXML
@@ -196,10 +203,9 @@ public class ArticuloController implements Initializable {
 		articuloList.clear();
 		String filtro = cmbMarca.getSelectionModel().getSelectedItem();
 
-		ObservableList<Articulo> articuloListFiltered = FXCollections
-				.observableArrayList(articuloService.findByMarca(filtro));
+		articuloList = FXCollections.observableArrayList(articuloService.findByMarca(filtro));
 
-		tablaArticulo.setItems(articuloListFiltered);
+		tablaArticulo.setItems(articuloList);
 	}
 
 	@FXML
@@ -244,12 +250,8 @@ public class ArticuloController implements Initializable {
 
 	@FXML
 	void deleteArticulo(ActionEvent event) {
+
 		Articulo articulo = tablaArticulo.getSelectionModel().getSelectedItem();
-
-//		articulo.setLineapedidos(null);
-//		articulo.setProductogenerico(null);
-
-		// articuloService.save(articulo);
 
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmar borrado");
@@ -265,9 +267,7 @@ public class ArticuloController implements Initializable {
 				Util.alertaInformacion("Error al intentar eliminar articulo",
 						"Este articulo está referenciado a un pedido, no puede borrarlo sin elimarlo antes del pedido o pedidos");
 			}
-
 		}
-
 		limpiarCampos();
 	}
 
@@ -306,7 +306,6 @@ public class ArticuloController implements Initializable {
 				limpiarCampos();
 			} else
 				Util.alertaInformacion("Error formulario", "Introduce un número entero en la cantidad");
-
 		}
 	}
 
@@ -331,20 +330,29 @@ public class ArticuloController implements Initializable {
 
 	}
 
+	
+
 	@FXML
 	void seleccionarArticulo(MouseEvent event) {
 
-		Articulo articulo = tablaArticulo.getSelectionModel().getSelectedItem();
+		articulo = tablaArticulo.getSelectionModel().getSelectedItem();
 
 		if (articulo != null) {
 			lbId.setText(Long.toString(articulo.getId()));
-			cmbTipo.getSelectionModel().select(articulo.getProductogenerico());
+
 			txtCodigo.setText(articulo.getCodigoBarras());
 			cmbColor.getSelectionModel().select(articulo.getColor());
 			cmbTalla.getSelectionModel().select(articulo.getTalla());
 			txtDetalles.setText(articulo.getDetalles());
 			txtStock.setText(String.valueOf(articulo.getStock()));
 			txtImagen.setText(articulo.getFoto());
+
+			// Para rellenar el combobox del objeto hay que buscar el objeto por id, ya que
+			// no son el mismo el de la lista que el del comboBox
+			for (Productogenerico productogenerico : tiposList) {
+				if (articulo.getProductogenerico().getId() == productogenerico.getId())
+					cmbTipo.getSelectionModel().select(productogenerico);
+			}
 		}
 	}
 
@@ -373,51 +381,35 @@ public class ArticuloController implements Initializable {
 	}
 
 	@FXML
-	protected void locateFile(ActionEvent event) throws IOException {
+	public void locateFile(ActionEvent event) throws IOException {
 
-		FileChooser chooser = new FileChooser();
-		ExtensionFilter fileExtensions = new FileChooser.ExtensionFilter("Imagenes JPG, GIF, PNG o JPEG", "*.jpg",
-				"*.gif", "*.png", "*.jpeg");
-
-		chooser.getExtensionFilters().add(fileExtensions);
-		String file = "";
-		try {
-			file = chooser.showOpenDialog(new Stage()).getCanonicalPath();
-		} catch (Exception e) {
-			Util.alertaInformacion("Error al seleccionar imagen", "No has seleccionado una imagen");
-		}
-
-		txtImagen.setText(file);
+		String pathFile = Util.imageChooser();
+		txtImagen.setText(pathFile);
 	}
 
 	private void loadCmbTipo() {
 
-		ObservableList<Productogenerico> tipos = FXCollections.observableArrayList();
-		tipos.addAll(prodGenService.findAll());
-		cmbTipo.setItems(tipos);
+		tiposList.addAll(prodGenService.findAll());
+		cmbTipo.setItems(tiposList);
 
 	}
 
 	private void loadCmbTalla() {
 
-		ObservableList<String> tallas = FXCollections.observableArrayList();
-		tallas.addAll(articuloService.findTallas());
-		cmbTalla.setItems(tallas);
+		tallasList.addAll(articuloService.findTallas());
+		cmbTalla.setItems(tallasList);
 	}
 
 	private void loadCmbColor() {
 
-		ObservableList<String> colores = FXCollections.observableArrayList();
-		colores.addAll(articuloService.findColores());
-		cmbColor.setItems(colores);
+		coloresList.addAll(articuloService.findColores());
+		cmbColor.setItems(coloresList);
 	}
 
 	private void loadCmbMarca() {
 
-		ObservableList<String> marcas = FXCollections.observableArrayList();
-		marcas.addAll(prodGenService.findMarcas());
-
-		cmbMarca.setItems(marcas);
+		marcasList.addAll(prodGenService.findMarcas());
+		cmbMarca.setItems(marcasList);
 
 	}
 

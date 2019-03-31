@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.paraparp.modelo.dao.ArticuloDao;
 import com.paraparp.modelo.entities.Articulo;
+import com.paraparp.modelo.entities.Lineapedido;
 import com.paraparp.service.ArticuloService;
 
 @Service
@@ -26,6 +27,7 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return (List<Articulo>) articuloDao.findAll();
 	}
+	
 
 	@Override
 	@Transactional
@@ -33,6 +35,7 @@ public class ArticuloServiceImp implements ArticuloService {
 		return articuloDao.save(proveedor);
 
 	}
+	
 
 	@Override
 	@Transactional
@@ -41,6 +44,7 @@ public class ArticuloServiceImp implements ArticuloService {
 		return articuloDao.findOne(id);
 	}
 
+	
 	@Override
 	@Transactional
 	public Articulo findByCodigoBarras(String codigo_barras) {
@@ -57,9 +61,9 @@ public class ArticuloServiceImp implements ArticuloService {
 	@Override
 	public void delete(Long id) {
 		articuloDao.delete(id);
-
 	}
 
+	
 	@Override
 	public Set<String> findTallas() {
 		ArrayList<String> tallas = new ArrayList<>();
@@ -69,6 +73,7 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return new HashSet<String>(tallas);
 	}
+	
 
 	@Override
 	public Set<String> findColores() {
@@ -79,6 +84,8 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return new HashSet<String>(colores);
 	}
+	
+	
 	@Override
 	public List<Articulo> findByCategoria(String categoria) {
 		ArrayList<Articulo> listaPorCategoria = new ArrayList<>();
@@ -90,6 +97,7 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return listaPorCategoria;
 	}
+	
 
 	@Override
 	public List<Articulo> findByMarca(String marca) {
@@ -115,14 +123,13 @@ public class ArticuloServiceImp implements ArticuloService {
 //			a.getCodigoBarras().toLowerCase().contains(param)
 //					|| 
 			a.getProductogenerico().getNombre().toLowerCase().contains(param))
-
 			{
 				filtrados.add(a);
 			}
-
 		}
-
 		return filtrados;
 	}
+
+
 
 }

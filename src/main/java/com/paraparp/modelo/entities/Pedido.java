@@ -31,7 +31,6 @@ public class Pedido implements Serializable {
 	private Date fechaPedido;
 	private Date fechaRecibido;
 	private BigDecimal  gastos;
-	private BigDecimal costeTotal;
 	private String detalles;
 	private List<Lineapedido> lineapedidos;
 
@@ -144,40 +143,7 @@ public class Pedido implements Serializable {
 		this.lineapedidos = lineapedidos;
 	}
 	
-	public BigDecimal costeTotal() {
-		
-		 List<Lineapedido> lineaPedidos = getLineapedidos();
-		 
-		 if (lineaPedidos==null || lineaPedidos.size()==0) {
-				
-				return BigDecimal.ZERO;
-			}
-		 
-		 
-		 BigDecimal coste_total = BigDecimal.ZERO;
-		 
-		 for (Lineapedido lineapedido : lineaPedidos) {
-			
-			 coste_total = lineapedido.getPrecio().multiply(new BigDecimal(lineapedido.getCantidad()));
-					 
-					
-		}
-		
-		return coste_total.add(this.gastos);
-	}
-	
-	
 
-	public BigDecimal getCosteTotal() {
-	
-	return costeTotal();
-//		return BigDecimal.ZERO;
-	}
-
-	public void setCosteTotal(BigDecimal costeTotal) {
-		this.costeTotal = costeTotal;
-	}
-	
 
 	@Override
 	public String toString() {
