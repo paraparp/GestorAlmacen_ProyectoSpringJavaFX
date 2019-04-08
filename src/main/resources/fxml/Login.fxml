@@ -83,7 +83,7 @@
                </textFill>
             </Label>
             <JFXPasswordField fx:id="txtPassword" focusColor="#37ff00" unFocusColor="#2afc00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="lbMsg" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13"/>
+            <Label fx:id="lbMsg" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
             <Label text="Login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
@@ -101,16 +101,20 @@
          </children>
       </GridPane>
       <Label layoutX="300.0" layoutY="362.0" textFill="#eb0505" />
-      <ImageView fitHeight="17.0" fitWidth="17.0" focusTraversable="true" layoutX="508.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/iconos/icon.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
+      <JFXButton fx:id="btnSalir" buttonType="RAISED" layoutX="503.0" layoutY="2.0" onAction="#salir">
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="17.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/iconos/icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

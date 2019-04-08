@@ -7,9 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.ProveedorDao;
-import com.paraparp.modelo.entities.Proveedor;
-import com.paraparp.service.ProveedorService;
+import com.paraparp.model.dao.ProveedorDao;
+import com.paraparp.model.entities.Proveedor;
+import com.paraparp.service.interfaces.ProveedorService;
 
 @Service
 public class ProveedorServiceImp implements ProveedorService{

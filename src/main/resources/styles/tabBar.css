@@ -1,16 +1,15 @@
 .tab{
 	
 	-fx-pref-width: 160;
-	-fx-pref-height: 30;
+	-fx-pref-height: 40;
 	
 
 
 }
 .tab-header-background{
-		 -fx-background-color: #00cc00 ;
+		 -fx-background-color: linear-gradient(to bottom, repeat, grey , #00cc00 );
 	
 }
 
 
-//linear-gradient(to bottom, repeat, grey , #00cc00 )
 

@@ -1,15 +1,11 @@
 package com.paraparp.controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.paraparp.modelo.entities.Articulo;
-import com.paraparp.modelo.entities.Lineapedido;
-import com.paraparp.service.ArticuloService;
+import com.paraparp.model.entities.Articulo;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

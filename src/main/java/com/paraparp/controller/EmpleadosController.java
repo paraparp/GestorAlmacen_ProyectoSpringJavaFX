@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.paraparp.modelo.entities.Empleado;
-import com.paraparp.service.EmpleadoService;
+import com.paraparp.model.entities.Empleado;
+import com.paraparp.service.interfaces.EmpleadoService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

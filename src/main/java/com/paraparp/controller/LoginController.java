@@ -6,12 +6,12 @@ import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.paraparp.service.EmpleadoService;
+import com.paraparp.service.interfaces.EmpleadoService;
 import com.paraparp.util.Constantes;
 
 import javafx.fxml.FXML;
@@ -24,23 +24,28 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-@Component
+@Controller
 public class LoginController implements Initializable {
 
-	@FXML
-	private JFXButton btnAcceso;
+    @FXML
+    private JFXButton btnAcceso;
 
-	@FXML
-	private JFXTextField txtUser;
+    @FXML
+    private JFXTextField txtUser;
 
-	@FXML
-	private JFXPasswordField txtPassword;
-	@FXML
-	private Label lbMsg;
+    @FXML
+    private JFXPasswordField txtPassword;
+
+    @FXML
+    private Label lbMsg;
+
+    @FXML
+    private JFXButton btnSalir;
+
+
 	@Autowired
 	private EmpleadoService empleadoService;
 
-	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
@@ -52,8 +57,6 @@ public class LoginController implements Initializable {
 	public void login() throws IOException {
 
 		if (empleadoService.authenticacion(txtUser.getText(), txtPassword.getText())) {
-			
-			
 
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constantes.PRINCIPAL_APP_PATH));
 			fxmlLoader.setControllerFactory(springContext::getBean);
@@ -68,7 +71,11 @@ public class LoginController implements Initializable {
 		} else {
 			lbMsg.setText("Login fallido");
 		}
-
+	}
+	
+	@FXML
+	private void salir() {
+		System.exit(0);
 	}
 
 }

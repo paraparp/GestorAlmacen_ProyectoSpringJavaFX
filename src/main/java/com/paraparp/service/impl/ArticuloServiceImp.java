@@ -10,10 +10,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.ArticuloDao;
-import com.paraparp.modelo.entities.Articulo;
-import com.paraparp.modelo.entities.Lineapedido;
-import com.paraparp.service.ArticuloService;
+import com.paraparp.model.dao.ArticuloDao;
+import com.paraparp.model.entities.Articulo;
+import com.paraparp.service.interfaces.ArticuloService;
 
 @Service
 public class ArticuloServiceImp implements ArticuloService {

@@ -12,14 +12,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.paraparp.modelo.entities.Articulo;
-import com.paraparp.modelo.entities.Lineapedido;
-import com.paraparp.modelo.entities.Pedido;
-import com.paraparp.modelo.entities.Productogenerico;
-import com.paraparp.service.ArticuloService;
-import com.paraparp.service.LineaPedidoService;
-import com.paraparp.service.PedidoService;
-import com.paraparp.service.ProductoGenericoService;
+import com.paraparp.model.entities.Articulo;
+import com.paraparp.model.entities.Lineapedido;
+import com.paraparp.model.entities.Pedido;
+import com.paraparp.model.entities.Productogenerico;
+import com.paraparp.service.interfaces.ArticuloService;
+import com.paraparp.service.interfaces.LineaPedidoService;
+import com.paraparp.service.interfaces.PedidoService;
+import com.paraparp.service.interfaces.ProductoGenericoService;
 import com.paraparp.util.Util;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -311,7 +311,7 @@ public class LineaPedidoController implements Initializable {
 				articulo.setStock(Integer.parseInt(txtCantidad.getText()));
 
 			}
-			Articulo newA = articuloService.save(articulo);
+			articuloService.save(articulo);
 			lp.setArticulo(articulo);
 			Lineapedido newLp = lineaPedidoService.save(lp);
 

@@ -1,9 +1,9 @@
-package com.paraparp.service;
+package com.paraparp.service.interfaces;
 
 import java.util.List;
 import java.util.Set;
 
-import com.paraparp.modelo.entities.Articulo;
+import com.paraparp.model.entities.Articulo;
 
 public interface ArticuloService {
 	

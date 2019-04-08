@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.LineaPedidoDao;
-import com.paraparp.modelo.entities.Lineapedido;
-import com.paraparp.service.LineaPedidoService;
+import com.paraparp.model.dao.LineaPedidoDao;
+import com.paraparp.model.entities.Lineapedido;
+import com.paraparp.service.interfaces.LineaPedidoService;
 
 @Service
 public class LineaPedidoServiceImp implements LineaPedidoService {

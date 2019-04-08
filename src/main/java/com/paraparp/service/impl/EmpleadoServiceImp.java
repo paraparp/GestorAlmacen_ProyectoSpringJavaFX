@@ -7,9 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.EmpleadoDao;
-import com.paraparp.modelo.entities.Empleado;
-import com.paraparp.service.EmpleadoService;
+import com.paraparp.model.dao.EmpleadoDao;
+import com.paraparp.model.entities.Empleado;
+import com.paraparp.service.interfaces.EmpleadoService;
 
 @Service
 public class EmpleadoServiceImp implements EmpleadoService{

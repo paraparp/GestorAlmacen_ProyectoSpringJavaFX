@@ -1,9 +1,9 @@
-package com.paraparp.service;
+package com.paraparp.service.interfaces;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.paraparp.modelo.entities.Pedido;
+import com.paraparp.model.entities.Pedido;
 
 public interface PedidoService {
 	

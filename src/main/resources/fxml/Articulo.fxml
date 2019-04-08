@@ -21,7 +21,7 @@
 	<children>
 		<AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="728.0" prefWidth="1387.0">
 			<children>
-      				<GridPane hgap="1.0" layoutX="22.0" layoutY="82.0" prefHeight="616.0" prefWidth="460.0">
+      				<GridPane hgap="1.0" layoutX="22.0" layoutY="82.0" prefHeight="607.0" prefWidth="460.0">
       					<columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="57.0" />
       						<ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="79.0" />
@@ -120,9 +120,9 @@
                   </JFXButton>
       					</children>
       				</GridPane>
-      				<AnchorPane layoutX="503.0" layoutY="53.0" prefHeight="660.0" prefWidth="884.0">
+      				<AnchorPane layoutX="503.0" layoutY="53.0" prefHeight="636.0" prefWidth="884.0">
       					<children>
-                  						<TableView fx:id="tablaArticulo" editable="true" layoutX="1.0" layoutY="75.0" onMouseClicked="#seleccionarArticulo" prefHeight="533.0" prefWidth="882.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
+                  						<TableView fx:id="tablaArticulo" editable="true" layoutX="1.0" layoutY="75.0" onMouseClicked="#seleccionarArticulo" prefHeight="523.0" prefWidth="882.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
                   							<columns>
                   								<TableColumn fx:id="colId" prefWidth="83.0" text="ID" />
                   								<TableColumn fx:id="colCodigo" maxWidth="4000.0" minWidth="50.0" prefWidth="170.0" text="Codigo Barras" />
@@ -141,7 +141,7 @@
                   <JFXTextField fx:id="txtBuscar" focusColor="#00cc00" layoutX="1.0" layoutY="31.0" onKeyPressed="#filtrarArticulos" prefHeight="26.0" prefWidth="267.0" promptText="Buscar..." style="-fx-background-color: #e7fde7;" unFocusColor="#dddddd" />
                   <JFXComboBox fx:id="cmbMarca" focusColor="#00cc00" layoutX="639.0" layoutY="31.0" onAction="#filtrarMarca" prefHeight="26.0" prefWidth="152.0" promptText="Marca..." />
                   <JFXComboBox fx:id="cmbCategoria" focusColor="#00cc00" layoutX="426.0" layoutY="31.0" onAction="#filtrarCategoria" prefHeight="26.0" prefWidth="162.0" promptText="Categoria.." />
-                  <JFXButton fx:id="btnDetalles" buttonType="RAISED" layoutX="1.0" layoutY="620.0" onAction="#abrirDetalles" prefHeight="26.0" prefWidth="659.0" style="-fx-background-color: #00cc00;" text="Ver detalles articulo" textFill="WHITE">
+                  <JFXButton fx:id="btnDetalles" buttonType="RAISED" layoutX="1.0" layoutY="606.0" onAction="#abrirDetalles" prefHeight="26.0" prefWidth="659.0" style="-fx-background-color: #00cc00;" text="Ver detalles articulo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -149,7 +149,7 @@
                         <Font name="Calibri Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnEliminar" buttonType="RAISED" layoutX="673.0" layoutY="620.0" onAction="#deleteArticulo" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: #00cc00;" text="Eliminar artículo" textFill="WHITE">
+                  <JFXButton fx:id="btnEliminar" buttonType="RAISED" layoutX="673.0" layoutY="606.0" onAction="#deleteArticulo" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: #00cc00;" text="Eliminar artículo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

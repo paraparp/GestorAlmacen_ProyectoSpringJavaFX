@@ -8,10 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.PedidoDao;
-import com.paraparp.modelo.entities.Lineapedido;
-import com.paraparp.modelo.entities.Pedido;
-import com.paraparp.service.PedidoService;
+import com.paraparp.model.dao.PedidoDao;
+import com.paraparp.model.entities.Lineapedido;
+import com.paraparp.model.entities.Pedido;
+import com.paraparp.service.interfaces.PedidoService;
 
 @Service
 public class PedidoServiceImp implements PedidoService {

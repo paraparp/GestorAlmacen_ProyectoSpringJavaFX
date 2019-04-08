@@ -14,18 +14,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.paraparp.modelo.entities.Articulo;
-import com.paraparp.modelo.entities.Empleado;
-import com.paraparp.modelo.entities.Pedido;
-import com.paraparp.modelo.entities.Productogenerico;
-import com.paraparp.modelo.entities.Proveedor;
-import com.paraparp.service.EmpleadoService;
-import com.paraparp.service.PedidoService;
-import com.paraparp.service.ProveedorService;
+import com.paraparp.model.entities.Empleado;
+import com.paraparp.model.entities.Pedido;
+import com.paraparp.model.entities.Proveedor;
+import com.paraparp.service.interfaces.EmpleadoService;
+import com.paraparp.service.interfaces.PedidoService;
+import com.paraparp.service.interfaces.ProveedorService;
 import com.paraparp.util.Util;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,15 +29,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 
 @Controller
 public class PedidosController implements Initializable {

@@ -1,4 +1,4 @@
-package com.paraparp.modelo.entities;
+package com.paraparp.model.entities;
 
 
 import static javax.persistence.GenerationType.IDENTITY;

@@ -10,9 +10,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraparp.modelo.dao.ProductoGenericoDao;
-import com.paraparp.modelo.entities.Productogenerico;
-import com.paraparp.service.ProductoGenericoService;
+import com.paraparp.model.dao.ProductoGenericoDao;
+import com.paraparp.model.entities.Productogenerico;
+import com.paraparp.service.interfaces.ProductoGenericoService;
 
 @Service
 public class ProductoGenericoServiceImp implements ProductoGenericoService {

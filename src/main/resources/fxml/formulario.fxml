@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -26,6 +27,7 @@
 						<Font name="Calibri Bold" size="40.0" />
 					</font>
 				</Text>
+            <Avatar fx:id="avatar" />
 			</children>
 		</HBox>
 	</top>
