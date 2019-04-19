@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.paraparp.model.entities.Empleado;
 import com.paraparp.service.interfaces.EmpleadoService;
+import com.paraparp.util.Util;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,10 +37,9 @@ public class EmpleadosController implements Initializable {
 
 	@FXML
 	private JFXButton btnEliminar;
-	
+
 	@FXML
 	private JFXButton btnBorrar;
-
 
 	@FXML
 	private Label lbId;
@@ -149,33 +149,43 @@ public class EmpleadosController implements Initializable {
 	private void deleteEmp(ActionEvent e) {
 
 		Empleado emp = tablaEmpleados.getSelectionModel().getSelectedItem();
+		if (emp != null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar al empleado " + emp.getNombre() + "?");
+			Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar al empleado " + emp.getNombre() + "?");
-		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
+			if (action.get() == ButtonType.OK) {
 
-		if (action.get() == ButtonType.OK)
-			empleadoService.delete(emp.getId());
+				try {
+					empleadoService.delete(emp.getId());
+				} catch (Exception ex) {
+					Util.alertaInformacion("Error al intentar eliminar empleado",
+							"Este empleado no puede ser eliminado, existen pedidos con su referencia");
+				}
+			}
 
-		limpiarCampos();
+			limpiarCampos();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
+		}
 	}
 
 	@FXML
 	private void seleccionarEmp() {
 
 		Empleado emp = tablaEmpleados.getSelectionModel().getSelectedItem();
-		
+
 		if (emp != null) {
 
-		lbId.setText(Long.toString(emp.getId()));
-		txtNombre.setText(emp.getNombre());
-		txtDni.setText(emp.getDni());
-		txtEmail.setText(emp.getEmail());
-		txtTelefono.setText(emp.getTelefono());
-		txtUsername.setText(emp.getUsername());
-		txtPassword.setText(emp.getPassword());
+			lbId.setText(Long.toString(emp.getId()));
+			txtNombre.setText(emp.getNombre());
+			txtDni.setText(emp.getDni());
+			txtEmail.setText(emp.getEmail());
+			txtTelefono.setText(emp.getTelefono());
+			txtUsername.setText(emp.getUsername());
+			txtPassword.setText(emp.getPassword());
 		}
 	}
 
@@ -203,7 +213,6 @@ public class EmpleadosController implements Initializable {
 		tablaEmpleados.setItems(empList);
 	}
 
-	
 	@FXML
 	private void limpiarCampos() {
 

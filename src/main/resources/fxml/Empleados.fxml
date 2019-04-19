@@ -81,11 +81,6 @@
                   </JFXButton>
 					</children>
 				</GridPane>
-				<Label alignment="CENTER" layoutX="4.0" layoutY="14.0" prefHeight="36.0" prefWidth="1410.0" text="EMPLEADOS" textFill="#27cd09">
-					<font>
-						<Font name="System Bold" size="25.0" />
-					</font>
-				</Label>
 				<AnchorPane layoutX="585.0" layoutY="75.0" prefHeight="605.0" prefWidth="823.0">
 					<children>
             						<TableView fx:id="tablaEmpleados" editable="true" layoutY="32.0" onMouseClicked="#seleccionarEmp" prefHeight="525.0" prefWidth="791.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
@@ -117,5 +112,10 @@
 
 			</children>
 		</AnchorPane>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="1410.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #00cc00;" text="EMPLEADOS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
 	</children>
 </Group>

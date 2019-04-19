@@ -130,7 +130,7 @@
 				</GridPane>
 				<AnchorPane layoutX="532.0" layoutY="75.0" prefHeight="606.0" prefWidth="877.0">
 					<children>
-                  						<TableView fx:id="tablaLineasPedido" editable="true" layoutX="6.0" layoutY="75.0" onMouseClicked="#seleccionarArticulo" prefHeight="451.0" prefWidth="785.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
+                  						<TableView fx:id="tablaLineasPedido" editable="true" layoutX="6.0" layoutY="42.0" onMouseClicked="#seleccionarArticulo" prefHeight="484.0" prefWidth="786.0" style="-fx-border-color: #00cc00;" stylesheets="@../styles/tabla.css" tableMenuButtonVisible="true">
                   							<columns>
                   								<TableColumn fx:id="colId" prefWidth="83.0" text="ID Linea" />
                   								<TableColumn fx:id="colCodigo" maxWidth="4000.0" minWidth="50.0" prefWidth="170.0" text="Codigo Barras" />
@@ -146,7 +146,6 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   						</TableView>
-                  <JFXTextField fx:id="txtBuscar" focusColor="#00cc00" layoutX="221.0" layoutY="31.0" onKeyTyped="#filtrarArticulos" prefHeight="25.0" prefWidth="264.0" promptText="Filtrar articulo..." style="-fx-background-color: #e7fde7;" unFocusColor="#dddddd" />
                   <JFXComboBox fx:id="cmbPedido" layoutX="223.0" layoutY="1.0" onAction="#cargarListaPedido" prefHeight="25.0" prefWidth="264.0" promptText="Selecciona un pedido" />
                   <Label fx:id="lbCostePedido" layoutX="342.0" layoutY="536.0" text="Selecciona un pedido" />
                   <JFXButton fx:id="btnEliminar" buttonType="RAISED" layoutY="566.0" onAction="#deleteArticulo" prefHeight="26.0" prefWidth="785.0" style="-fx-background-color: #00cc00;" text="Eliminar articulo" textFill="WHITE">

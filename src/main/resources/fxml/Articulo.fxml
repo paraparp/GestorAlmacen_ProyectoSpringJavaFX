@@ -172,14 +172,11 @@
 
 			</children>
 		</AnchorPane>
-      <VBox fx:id="top" style="-fx-background-color: #00cc00; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
-         <children>
-      				<Label alignment="CENTER" prefHeight="50.0" prefWidth="1410.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="ARTICULO" textFill="WHITE">
-      					<font>
-      						<Font name="System Bold" size="25.0" />
-      					</font>
-      				</Label>
-         </children>
-      </VBox>
+      <VBox fx:id="top" style="-fx-background-color: #00cc00; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;" />
+      <Label alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="50.0" prefWidth="1410.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #00cc00;" text="ARTICULO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
 	</children>
 </Group>

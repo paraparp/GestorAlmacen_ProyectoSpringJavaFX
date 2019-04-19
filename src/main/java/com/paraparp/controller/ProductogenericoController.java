@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.paraparp.model.entities.Productogenerico;
 import com.paraparp.service.interfaces.ProductoGenericoService;
+import com.paraparp.util.Util;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -147,17 +148,27 @@ public class ProductogenericoController implements Initializable {
 	private void deleteGenerico(ActionEvent e) {
 
 		Productogenerico prodGen = tablaProdGen.getSelectionModel().getSelectedItem();
+		if (prodGen != null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar el producto " + prodGen.getNombre() + "?");
+			Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar el producto " + prodGen.getNombre() + "?");
-		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
+			if (action.get() == ButtonType.OK) {
 
-		if (action.get() == ButtonType.OK)
-			prodGenService.delete(prodGen.getId());
+				try {
+					prodGenService.delete(prodGen.getId());
+				} catch (Exception ex) {
+					Util.alertaInformacion("Error al intentar eliminar genérico",
+							"Este genérico no puede ser eliminado, existen articulo con su referencia");
+				}
+			}
 
-		limpiarCampos();
+			limpiarCampos();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
+		}
 
 	}
 
@@ -179,15 +190,15 @@ public class ProductogenericoController implements Initializable {
 	void seleccionarGenerico(MouseEvent event) {
 
 		Productogenerico prodGen = tablaProdGen.getSelectionModel().getSelectedItem();
-		
+
 		if (prodGen != null) {
 
-		lbId.setText(Long.toString(prodGen.getId()));
-		txtCodigo.setText(prodGen.getCodigo());
-		cmbCategoria.getSelectionModel().select(prodGen.getCategoria());
-		cmbMarca.getSelectionModel().select(prodGen.getMarca());
-		txtNombre.setText(prodGen.getNombre());
-		txtDescripcion.setText(prodGen.getDescripcion());
+			lbId.setText(Long.toString(prodGen.getId()));
+			txtCodigo.setText(prodGen.getCodigo());
+			cmbCategoria.getSelectionModel().select(prodGen.getCategoria());
+			cmbMarca.getSelectionModel().select(prodGen.getMarca());
+			txtNombre.setText(prodGen.getNombre());
+			txtDescripcion.setText(prodGen.getDescripcion());
 		}
 	}
 

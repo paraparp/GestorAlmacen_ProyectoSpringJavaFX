@@ -15,11 +15,9 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
-		<!-- <mainClass>com.codetreatise.MainApp</mainClass> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -71,7 +69,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -87,5 +85,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<description>The Application front-end designed using JavaFX and Spring Boot is used as backend to bootstrap the app. The scenes are created in FXML using Scene Builder. The app demonstrate simple CRUD using Spring Boot and JavaFX.</description>
 </project>

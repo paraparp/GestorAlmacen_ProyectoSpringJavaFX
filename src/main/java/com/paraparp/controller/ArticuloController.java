@@ -19,6 +19,7 @@ import com.paraparp.service.interfaces.ProductoGenericoService;
 import com.paraparp.util.Util;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,12 +138,6 @@ public class ArticuloController implements Initializable {
 
 	private ObservableList<Articulo> articuloList = FXCollections.observableArrayList();
 
-	private ObservableList<String> tallasList = FXCollections.observableArrayList();
-
-	private ObservableList<String> coloresList = FXCollections.observableArrayList();
-
-	private ObservableList<String> marcasList = FXCollections.observableArrayList();
-	
 	private ObservableList<Productogenerico> tiposList = FXCollections.observableArrayList();
 
 	private Articulo articulo;
@@ -150,41 +145,44 @@ public class ArticuloController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		cargar();
+	}
+
+	void cargar() {
+
 		loadCmbTipo();
 		loadCmbColor();
 		loadCmbTalla();
 		loadCmbCategoria();
 		loadCmbMarca();
-
 		cargarColumnas();
 		cargarArticulos();
-
 		tablaArticulo.setItems(articuloList);
-		tablaArticulo.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 
 	@FXML
 	void filtrarTipo(KeyEvent event) {
 
-		String filtroTipo = txtBuscaTipo.getText().toLowerCase();
-		cmbTipo.getSelectionModel().clearSelection();
-
-		ObservableList<Productogenerico> tipoListFiltered = FXCollections
-				.observableArrayList(prodGenService.findByParam(filtroTipo));
-
-		cmbTipo.setItems(tipoListFiltered);
+		txtBuscaTipo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String filtro) {
+				ObservableList<Productogenerico> tipoListFiltered = FXCollections
+						.observableArrayList(prodGenService.findByParam(filtro));
+				cmbTipo.setItems(tipoListFiltered);
+			}
+		});
 	}
 
 	@FXML
 	void filtrarArticulos(KeyEvent event) {
 
-		articuloList.clear();
-		String filtro = txtBuscar.getText().toLowerCase();
-
-		articuloList = FXCollections.observableArrayList(articuloService.findByParam(filtro));
-
-		tablaArticulo.setItems(articuloList);
-
+		txtBuscar.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String filtro) {
+				articuloList = FXCollections.observableArrayList(articuloService.findByParam(filtro));
+				tablaArticulo.setItems(articuloList);
+			}
+		});
 	}
 
 	@FXML
@@ -201,9 +199,7 @@ public class ArticuloController implements Initializable {
 
 		articuloList.clear();
 		String filtro = cmbMarca.getSelectionModel().getSelectedItem();
-
 		articuloList = FXCollections.observableArrayList(articuloService.findByMarca(filtro));
-
 		tablaArticulo.setItems(articuloList);
 	}
 
@@ -211,9 +207,7 @@ public class ArticuloController implements Initializable {
 	private void cargarArticulos() {
 
 		articuloList.clear();
-
 		articuloList.addAll(articuloService.findAll());
-
 		tablaArticulo.setItems(articuloList);
 
 	}
@@ -251,23 +245,27 @@ public class ArticuloController implements Initializable {
 	void deleteArticulo(ActionEvent event) {
 
 		Articulo articulo = tablaArticulo.getSelectionModel().getSelectedItem();
+		if (articulo != null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar el articulo" + articulo.getCodigoBarras() + "?");
+			Optional<ButtonType> action = alert.showAndWait();
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar el articulo" + articulo.getCodigoBarras() + "?");
-		Optional<ButtonType> action = alert.showAndWait();
+			if (action.get() == ButtonType.OK) {
+				try {
+					articuloService.delete(articulo.getId());
 
-		if (action.get() == ButtonType.OK) {
-			try {
-				articuloService.delete(articulo.getId());
-
-			} catch (Exception e) {
-				Util.alertaInformacion("Error al intentar eliminar articulo",
-						"Este articulo está referenciado a un pedido, no puede borrarlo sin elimarlo antes del pedido o pedidos");
+				} catch (Exception e) {
+					Util.alertaInformacion("Error al intentar eliminar articulo",
+							"Este articulo está referenciado a un pedido, no puede borrarlo sin elimarlo antes del pedido o pedidos");
+				}
 			}
+			limpiarCampos();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
 		}
-		limpiarCampos();
+
 	}
 
 	@FXML
@@ -287,7 +285,6 @@ public class ArticuloController implements Initializable {
 
 		if (txtCodigo.getText().isEmpty() || cmbTipo.getValue() == null || txtStock.getText().isEmpty()) {
 			Util.alertaInformacion("Error formulario", "Completa al menos el campo de Tipo, Codigo y Stock");
-
 		} else {
 
 			if (txtStock.getText().matches("\\d+")) {
@@ -328,8 +325,6 @@ public class ArticuloController implements Initializable {
 			Util.alertaInformacion("Error formulario", "Introduce un número entero en la cantidad");
 
 	}
-
-	
 
 	@FXML
 	void seleccionarArticulo(MouseEvent event) {
@@ -388,27 +383,29 @@ public class ArticuloController implements Initializable {
 
 	private void loadCmbTipo() {
 
+		cmbTipo.getItems().clear();
 		tiposList.addAll(prodGenService.findAll());
 		cmbTipo.setItems(tiposList);
 
 	}
 
 	private void loadCmbTalla() {
-
+		ObservableList<String> tallasList = FXCollections.observableArrayList();
 		tallasList.addAll(articuloService.findTallas());
 		cmbTalla.setItems(tallasList);
 	}
 
 	private void loadCmbColor() {
 
+		ObservableList<String> coloresList = FXCollections.observableArrayList();
 		coloresList.addAll(articuloService.findColores());
 		cmbColor.setItems(coloresList);
 	}
 
 	private void loadCmbMarca() {
-
-		marcasList.addAll(prodGenService.findMarcas());
-		cmbMarca.setItems(marcasList);
+		ObservableList<String> marcas = FXCollections.observableArrayList();
+		marcas.addAll(prodGenService.findMarcas());
+		cmbMarca.setItems(marcas);
 
 	}
 

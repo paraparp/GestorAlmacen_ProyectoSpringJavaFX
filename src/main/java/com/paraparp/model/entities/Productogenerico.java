@@ -111,7 +111,7 @@ public class Productogenerico implements Serializable {
 
 	@Override
 	public String toString() {
-		return nombre;
+		return marca + " - "+ nombre;
 	}
 
 }

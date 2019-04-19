@@ -22,6 +22,8 @@ import com.paraparp.service.interfaces.PedidoService;
 import com.paraparp.service.interfaces.ProveedorService;
 import com.paraparp.util.Util;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,9 +34,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 @Controller
 public class PedidosController implements Initializable {
@@ -88,9 +92,6 @@ public class PedidosController implements Initializable {
 	private TableColumn<Pedido, Double> colGastos;
 
 	@FXML
-	private TableColumn<Pedido, String> colCoste;
-
-	@FXML
 	private TableColumn<Pedido, String> colProveedor;
 
 	@FXML
@@ -124,11 +125,6 @@ public class PedidosController implements Initializable {
 	}
 
 	@FXML
-	void editarPedido(ActionEvent event) {
-
-	}
-
-	@FXML
 	void savePedido(ActionEvent event) {
 
 		Pedido p = new Pedido();
@@ -145,59 +141,67 @@ public class PedidosController implements Initializable {
 	}
 
 	private void saveNew(Pedido p, Alert alert) {
+		if (txtGastos.getText().matches("^\\d+(,\\d{3})*(\\.\\d{1,2})?$")) {
+			p.setCodigo(txtCodigo.getText());
+			p.setFechaPedido(Util.LocalDateToDate(datePedido.getValue()));
+			p.setFechaRecibido(Util.LocalDateToDate(dateRecibido.getValue()));
+			p.setGastos(new BigDecimal(txtGastos.getText()));
+			p.setProveedor(CmbProveedor.getValue());
+			p.setEmpleado(CmbEmpleado.getValue());
 
-		p.setCodigo(txtCodigo.getText());
-		p.setFechaPedido(Util.LocalDateToDate(datePedido.getValue()));
-		p.setFechaRecibido(Util.LocalDateToDate(dateRecibido.getValue()));
-		p.setGastos(new BigDecimal(txtGastos.getText()));
-		p.setProveedor(CmbProveedor.getValue());
-		p.setEmpleado(CmbEmpleado.getValue());
+			if (txtCodigo.getText().isEmpty()) {
+				alert.setContentText("Completa al menos el campo  Codigo");
 
-		if (txtCodigo.getText().isEmpty()) {
-			alert.setContentText("Completa al menos el campo  Codigo");
-
-		} else {
-			Pedido newP = pedidoService.save(p);
-			alert.setContentText("Añadido pedido con codigo: " + newP.getCodigo());
-		}
+			} else {
+				Pedido newP = pedidoService.save(p);
+				alert.setContentText("Añadido pedido con codigo: " + newP.getCodigo());
+			}
+		} else
+			Util.alertaInformacion("Error formulario", "Introduce un valor correcto en Gastos");
 	}
 
 	private void saveUpdt(Pedido p, Alert alert) {
 
 		p = pedidoService.findById(Long.parseLong(lbId.getText()));
 
-		p.setCodigo(txtCodigo.getText());
-		p.setFechaPedido(Util.LocalDateToDate(datePedido.getValue()));
-		p.setFechaRecibido(Util.LocalDateToDate(dateRecibido.getValue()));
-		p.setGastos(new BigDecimal(txtGastos.getText()));
-		p.setProveedor(CmbProveedor.getValue());
-		p.setEmpleado(CmbEmpleado.getValue());
-		Pedido udtP = pedidoService.save(p);
+		if (txtGastos.getText().matches("^\\d+(,\\d{3})*(\\.\\d{1,2})?$")) {
+			p.setCodigo(txtCodigo.getText());
+			p.setFechaPedido(Util.LocalDateToDate(datePedido.getValue()));
+			p.setFechaRecibido(Util.LocalDateToDate(dateRecibido.getValue()));
+			p.setGastos(new BigDecimal(txtGastos.getText()));
+			p.setProveedor(CmbProveedor.getValue());
+			p.setEmpleado(CmbEmpleado.getValue());
+			Pedido udtP = pedidoService.save(p);
 
-		alert.setContentText("Editado pedido con codigo: " + udtP.getCodigo());
+			alert.setContentText("Editado pedido con codigo: " + udtP.getCodigo());
+		} else
+			Util.alertaInformacion("Error formulario", "Introduce un valor correcto en Gastos");
 	}
 
 	@FXML
 	private void deletePedido(ActionEvent e) {
 
 		Pedido ped = tablaPedidos.getSelectionModel().getSelectedItem();
+		if (ped != null) {
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar al empleado " + ped.getCodigo() + "?");
-		Optional<ButtonType> action = alert.showAndWait();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar al empleado " + ped.getCodigo() + "?");
+			Optional<ButtonType> action = alert.showAndWait();
 
-		if (action.get() == ButtonType.OK)
-			try {
-				pedidoService.delete(ped.getId());
-			} catch (Exception ex) {
-				Util.alertaInformacion("Error al intentar eliminar pedido",
-						"Este pedido contiene artículos, no puede ser eliminado sin elimar antes todos los articulos del pedido");
-			}
+			if (action.get() == ButtonType.OK)
+				try {
+					pedidoService.delete(ped.getId());
+				} catch (Exception ex) {
+					Util.alertaInformacion("Error al intentar eliminar pedido",
+							"Este pedido contiene artículos, no puede ser eliminado sin elimar antes todos los articulos del pedido");
+				}
 
-		limpiarCampos();
-
+			limpiarCampos();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
+		}
 	}
 
 	private void loadCmbEmpleados() {
@@ -225,12 +229,12 @@ public class PedidosController implements Initializable {
 			datePedido.setValue(Util.DateToLocalDate(pedido.getFechaPedido()));
 			dateRecibido.setValue(Util.DateToLocalDate(pedido.getFechaRecibido()));
 			txtGastos.setText((pedido.getGastos().toString()));
-			
+
 			for (Empleado empleado : empleadosList) {
 				if (empleado.getId() == pedido.getEmpleado().getId())
 					CmbEmpleado.getSelectionModel().select(empleado);
 			}
-			
+
 			for (Proveedor proveedor : proveedoresList) {
 				if (proveedor.getId() == pedido.getProveedor().getId())
 					CmbProveedor.getSelectionModel().select(proveedor);
@@ -238,7 +242,6 @@ public class PedidosController implements Initializable {
 
 		}
 	}
-	
 
 	private void cargarColumnas() {
 
@@ -247,16 +250,6 @@ public class PedidosController implements Initializable {
 		colFechaP.setCellValueFactory(new PropertyValueFactory<>("fechaPedido"));
 		colFechaR.setCellValueFactory(new PropertyValueFactory<>("fechaRecibido"));
 		colGastos.setCellValueFactory(new PropertyValueFactory<>("gastos"));
-//
-//		colCoste.setCellValueFactory(new Callback<CellDataFeatures<Pedido, String>, ObservableValue<String>>() {
-//			public ObservableValue<String> call(CellDataFeatures<Pedido, BigDecimal> pedido) {
-//				return new SimpleStringProperty(String.valueOf(pedidoService.costeTotal(pedido)));
-//			}
-//		});
-//	
-		
-		
-		
 		colProveedor.setCellValueFactory(new PropertyValueFactory<>("empleado"));
 		colEmpleado.setCellValueFactory(new PropertyValueFactory<>("proveedor"));
 	}
@@ -264,9 +257,7 @@ public class PedidosController implements Initializable {
 	private void cargarPedidos() {
 
 		pedidosList.clear();
-
 		pedidosList.addAll(pedidoService.findAll());
-
 		tablaPedidos.setItems(pedidosList);
 	}
 

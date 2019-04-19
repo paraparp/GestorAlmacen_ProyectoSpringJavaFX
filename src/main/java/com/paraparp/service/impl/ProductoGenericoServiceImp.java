@@ -45,7 +45,6 @@ public class ProductoGenericoServiceImp implements ProductoGenericoService {
 	@Transactional
 	public void delete(Long id) {
 		productoGenericoDao.delete(id);
-
 	}
 
 	@Override
@@ -55,7 +54,6 @@ public class ProductoGenericoServiceImp implements ProductoGenericoService {
 		for (Productogenerico productogenerico : (ArrayList<Productogenerico>) findAll()) {
 			marcas.add(productogenerico.getMarca());
 		}
-
 		return new HashSet<String>(marcas);
 	}
 
@@ -66,7 +64,6 @@ public class ProductoGenericoServiceImp implements ProductoGenericoService {
 		for (Productogenerico productogenerico : (ArrayList<Productogenerico>) findAll()) {
 			categorias.add(productogenerico.getCategoria());
 		}
-
 		return new HashSet<String>(categorias);
 	}
 
@@ -77,15 +74,10 @@ public class ProductoGenericoServiceImp implements ProductoGenericoService {
 
 		for (Productogenerico p : findAll()) {
 
-			if (p.getNombre().toLowerCase().contains(param) || p.getCodigo().toLowerCase().contains(param)) {
-
-				System.out.println(p.getNombre() + " == " + param);
-
+			if (p.getNombre().toLowerCase().contains(param)|| p.getMarca().toLowerCase().contains(param)|| p.getCodigo().toLowerCase().contains(param)) {
 				filtrados.add(p);
 			}
-
 		}
-
 		return filtrados;
 	}
 

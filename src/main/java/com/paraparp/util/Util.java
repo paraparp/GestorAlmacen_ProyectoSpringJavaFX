@@ -16,11 +16,18 @@ public class Util {
 
 	public static Date LocalDateToDate(LocalDate ld) {
 
+		if (ld==null) {
+			return null;
+		}
 		return Date.from(ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 
 	}
 	
 	public  static LocalDate DateToLocalDate(Date date) {
+		
+		if (date==null) {
+			return null;
+		}
 		return  ((java.sql.Date) date).toLocalDate();
 		
 	}

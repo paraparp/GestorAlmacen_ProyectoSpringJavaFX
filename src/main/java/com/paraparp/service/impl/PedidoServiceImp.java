@@ -51,24 +51,12 @@ public class PedidoServiceImp implements PedidoService {
 	public BigDecimal costeTotal(Pedido pedido) {
 
 		List<Lineapedido> lineaPedidos = findById(pedido.getId()).getLineapedidos();
-
-//			 if (lineaPedidos==null || lineaPedidos.size()==0) {
-//					
-//					return BigDecimal.ZERO;
-//				}
-
 		BigDecimal coste_total = pedido.getGastos();
 
 		for (Lineapedido lineapedido : lineaPedidos) {
-
 			BigDecimal coste_linea = lineapedido.getPrecio().multiply(new BigDecimal(lineapedido.getCantidad()));
-
 			coste_total = coste_total.add(coste_linea);
-
 		}
-
 		return coste_total;
-
 	}
-
 }

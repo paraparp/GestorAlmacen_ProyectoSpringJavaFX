@@ -26,7 +26,6 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return (List<Articulo>) articuloDao.findAll();
 	}
-	
 
 	@Override
 	@Transactional
@@ -34,7 +33,6 @@ public class ArticuloServiceImp implements ArticuloService {
 		return articuloDao.save(proveedor);
 
 	}
-	
 
 	@Override
 	@Transactional
@@ -43,7 +41,6 @@ public class ArticuloServiceImp implements ArticuloService {
 		return articuloDao.findOne(id);
 	}
 
-	
 	@Override
 	@Transactional
 	public Articulo findByCodigoBarras(String codigo_barras) {
@@ -62,7 +59,6 @@ public class ArticuloServiceImp implements ArticuloService {
 		articuloDao.delete(id);
 	}
 
-	
 	@Override
 	public Set<String> findTallas() {
 		ArrayList<String> tallas = new ArrayList<>();
@@ -72,7 +68,6 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return new HashSet<String>(tallas);
 	}
-	
 
 	@Override
 	public Set<String> findColores() {
@@ -83,34 +78,31 @@ public class ArticuloServiceImp implements ArticuloService {
 
 		return new HashSet<String>(colores);
 	}
-	
-	
+
 	@Override
 	public List<Articulo> findByCategoria(String categoria) {
 		ArrayList<Articulo> listaPorCategoria = new ArrayList<>();
 		for (Articulo articulo : (ArrayList<Articulo>) findAll()) {
-			
-			if(articulo.getProductogenerico().getCategoria().contentEquals(categoria))
-			listaPorCategoria.add(articulo);
+
+			if (articulo.getProductogenerico().getCategoria().contentEquals(categoria))
+				listaPorCategoria.add(articulo);
 		}
 
 		return listaPorCategoria;
 	}
-	
 
 	@Override
 	public List<Articulo> findByMarca(String marca) {
 		ArrayList<Articulo> listaPorMarca = new ArrayList<>();
 		for (Articulo articulo : (ArrayList<Articulo>) findAll()) {
-			
-			if(articulo.getProductogenerico().getMarca().contentEquals(marca))
-			listaPorMarca.add(articulo);
+
+			if (articulo.getProductogenerico().getMarca().contentEquals(marca))
+				listaPorMarca.add(articulo);
 		}
 
 		return listaPorMarca;
 	}
-	
-	
+
 	@Override
 	public List<Articulo> findByParam(String param) {
 
@@ -121,14 +113,11 @@ public class ArticuloServiceImp implements ArticuloService {
 			if (
 //			a.getCodigoBarras().toLowerCase().contains(param)
 //					|| 
-			a.getProductogenerico().getNombre().toLowerCase().contains(param))
-			{
+			a.getProductogenerico().getNombre().toLowerCase().contains(param)) {
 				filtrados.add(a);
 			}
 		}
 		return filtrados;
 	}
-
-
 
 }

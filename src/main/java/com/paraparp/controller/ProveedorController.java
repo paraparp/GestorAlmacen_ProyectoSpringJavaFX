@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.paraparp.model.entities.Proveedor;
 import com.paraparp.service.interfaces.ProveedorService;
+import com.paraparp.util.Util;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -150,32 +151,43 @@ public class ProveedorController implements Initializable {
 
 		Proveedor prov = tablaProveedores.getSelectionModel().getSelectedItem();
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar al proveedor " + prov.getNombre() + "?");
-		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
+		if (prov != null) {
 
-		if (action.get() == ButtonType.OK)
-			proveedorService.delete(prov.getId());
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar al proveedor " + prov.getNombre() + "?");
+			Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
 
-		limpiarCampos();
+			if (action.get() == ButtonType.OK)
+				try {
+					proveedorService.delete(prov.getId());
+				} catch (Exception ex) {
+					Util.alertaInformacion("Error al intentar eliminar proveedor",
+							"Este proveedor tiene referencias en pedidos.");
+				}
+
+			limpiarCampos();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
+		}
+
 	}
 
 	@FXML
 	private void seleccionarProveedor() {
 
 		Proveedor prov = tablaProveedores.getSelectionModel().getSelectedItem();
-		
+
 		if (prov != null) {
 
-		lbId.setText(Long.toString(prov.getId()));
-		txtNombre.setText(prov.getNombre());
-		txtCif.setText(prov.getCif());
-		txtEmail.setText(prov.getEmail());
-		txtTelefono.setText(prov.getTelefono());
-		txtDireccion.setText(prov.getDireccion());
-		txtDetalles.setText(prov.getDescripcion());
+			lbId.setText(Long.toString(prov.getId()));
+			txtNombre.setText(prov.getNombre());
+			txtCif.setText(prov.getCif());
+			txtEmail.setText(prov.getEmail());
+			txtTelefono.setText(prov.getTelefono());
+			txtDireccion.setText(prov.getDireccion());
+			txtDetalles.setText(prov.getDescripcion());
 		}
 
 	}

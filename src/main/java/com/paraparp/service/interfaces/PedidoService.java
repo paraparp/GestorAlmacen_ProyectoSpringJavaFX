@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.paraparp.model.entities.Pedido;
 
+import javafx.scene.control.TableColumn.CellDataFeatures;
+
 public interface PedidoService {
 	
 	public List<Pedido> findAll();

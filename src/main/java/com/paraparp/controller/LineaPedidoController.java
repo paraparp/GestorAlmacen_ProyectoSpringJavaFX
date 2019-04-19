@@ -23,6 +23,7 @@ import com.paraparp.service.interfaces.ProductoGenericoService;
 import com.paraparp.util.Util;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,9 +46,6 @@ import javafx.util.Callback;
 public class LineaPedidoController implements Initializable {
 
 	@FXML
-	private JFXTextField txtBuscar;
-
-	@FXML
 	private JFXTextField txtCodigo;
 
 	@FXML
@@ -61,7 +59,7 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXComboBox<Pedido> cmbPedido;
-	
+
 	@FXML
 	private JFXTextField txtPrecio;
 
@@ -73,7 +71,7 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXTextField txtImagen;
-	
+
 	@FXML
 	private JFXButton btnGuardar;
 
@@ -115,13 +113,13 @@ public class LineaPedidoController implements Initializable {
 
 	@FXML
 	private JFXTextField txtBuscaTipo;
-	
+
 	@FXML
 	private JFXButton btnBorrar;
-	
+
 	@FXML
 	private JFXButton btnImagen;
-	
+
 	@FXML
 	private JFXComboBox<Productogenerico> cmbTipo;
 
@@ -136,62 +134,44 @@ public class LineaPedidoController implements Initializable {
 
 	@Autowired
 	private PedidoService pedidoService;
-	
+
 	@Autowired
 	private LineaPedidoService lineaPedidoService;
-	
+
 	private Articulo articulo;
 
 	private ObservableList<Lineapedido> lineasPedidoList = FXCollections.observableArrayList();
-	private ObservableList<String> coloresList = FXCollections.observableArrayList();
-	private ObservableList<String> tallasList = FXCollections.observableArrayList();
+
 	private ObservableList<Productogenerico> tiposList = FXCollections.observableArrayList();
 	private ObservableList<Pedido> pedidosList = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargar();
+	}
+
+	void cargar() {
 		
 		loadCmbTipo();
 		loadCmbColor();
 		loadCmbTalla();
 		loadCmbPedido();
 		cargarColumnas();
-
 		tablaLineasPedido.setItems(lineasPedidoList);
-
 	}
 
 	@FXML
 	void filtrarTipo(KeyEvent event) {
-		String filtroTipo = txtBuscaTipo.getText().toLowerCase();
-		cmbTipo.getSelectionModel().clearSelection();
 
-		ObservableList<Productogenerico> tipoListFiltered = FXCollections
-				.observableArrayList(prodGenService.findByParam(filtroTipo));
+		txtBuscaTipo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String filtro) {
+				ObservableList<Productogenerico> tipoListFiltered = FXCollections
+						.observableArrayList(prodGenService.findByParam(filtro));
 
-		cmbTipo.setItems(tipoListFiltered);
-	}
-
-	@FXML
-	void filtrarArticulos(KeyEvent event) {
-
-//		String filtro = txtBuscar.getText().toLowerCase();
-//		lineasPedidoList.clear();
-//
-//		ObservableList<Lineapedido> articuloListFiltered = FXCollections
-//				.observableArrayList(articuloService.findByParam(filtro));
-//
-//		tablaLineasPedido.setItems(articuloListFiltered);
-
-	}
-
-	private void cargarArticulos() {
-
-//		lineasPedidoList.clear();
-//
-//		lineasPedidoList.addAll(articuloService.findAll());
-//
-//		tablaLineasPedido.setItems(lineasPedidoList);
+				cmbTipo.setItems(tipoListFiltered);
+			}
+		});
 
 	}
 
@@ -244,23 +224,27 @@ public class LineaPedidoController implements Initializable {
 	@FXML
 	void deleteArticulo(ActionEvent event) {
 		Lineapedido lineaPedido = tablaLineasPedido.getSelectionModel().getSelectedItem();
+		if (lineaPedido != null) {
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmar borrado");
-		alert.setHeaderText(null);
-		alert.setContentText("¿Deseas borrar el articulo" + lineaPedido.getId() + "?");
-		Optional<ButtonType> action = alert.showAndWait();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar borrado");
+			alert.setHeaderText(null);
+			alert.setContentText("¿Deseas borrar el articulo" + lineaPedido.getId() + "?");
+			Optional<ButtonType> action = alert.showAndWait();
 
-		if (action.get() == ButtonType.OK) {
-			Articulo articulo = articuloService.findByCodigoBarras(lineaPedido.getArticulo().getCodigoBarras());
-			articulo.actualizarStock(-lineaPedido.getCantidad());
-			articuloService.save(articulo);
+			if (action.get() == ButtonType.OK) {
+				Articulo articulo = articuloService.findByCodigoBarras(lineaPedido.getArticulo().getCodigoBarras());
+				articulo.actualizarStock(-lineaPedido.getCantidad());
+				articuloService.save(articulo);
 
-			lineaPedidoService.delete(lineaPedido.getId());
+				lineaPedidoService.delete(lineaPedido.getId());
+			}
+
+			limpiarCampos();
+			cargarListaPedido();
+		} else {
+			Util.alertaInformacion("Error al intentar eliminar articulo", "No has seleccionado ningún elemento.");
 		}
-
-		limpiarCampos();
-		cargarListaPedido();
 	}
 
 	@FXML
@@ -285,43 +269,47 @@ public class LineaPedidoController implements Initializable {
 
 		Lineapedido lp = new Lineapedido();
 
-		lp.setPedido(cmbPedido.getValue());
-		lp.setCantidad(Integer.parseInt(txtCantidad.getText()));
-		lp.setPrecio(new BigDecimal(txtPrecio.getText()));
-
-		articulo.setCodigoBarras(txtCodigo.getText());
-
-		articulo.setFoto(txtImagen.getText());
-
-		if (txtCodigo.getText().isEmpty()) {
-			alert.setContentText("Completa al menos el campo  Codigo");
+		if (cmbPedido.getValue() == null)
+			Util.alertaInformacion("Error formulario", "Selecciona un pedido de la lista");
+		else if (txtCodigo.getText().isEmpty() || cmbTipo.getValue() == null || txtCantidad.getText().isEmpty()) {
+			Util.alertaInformacion("Error formulario", "Completa al menos el campo de Tipo, Codigo y Cantidad");
 		} else {
-			// Se busca el codigo de barras y si no existe se crea un articulo nuevo
-			if (articuloService.findByCodigoBarras(articulo.getCodigoBarras()).getId() != null) {
 
-				articulo = articuloService.findByCodigoBarras(articulo.getCodigoBarras());
-				articulo.actualizarStock(Integer.parseInt(txtCantidad.getText()));
-
-			} else {
+			if (!txtCantidad.getText().matches("\\d+"))
+				Util.alertaInformacion("Error formulario", "Introduce un número entero en la cantidad");
+			else if (!txtPrecio.getText().matches("^\\d+(,\\d{3})*(\\.\\d{1,2})?$"))
+				Util.alertaInformacion("Error formulario", "Introduce un valor correcto en Precio");
+			else {
+				lp.setPedido(cmbPedido.getValue());
+				lp.setCantidad(Integer.parseInt(txtCantidad.getText()));
+				lp.setPrecio(new BigDecimal(txtPrecio.getText()));
 
 				articulo.setCodigoBarras(txtCodigo.getText());
-				articulo.setProductogenerico(cmbTipo.getValue());
-				articulo.setColor(cmbColor.getValue());
-				articulo.setTalla(cmbTalla.getValue());
-				articulo.setStock(Integer.parseInt(txtCantidad.getText()));
+				articulo.setFoto(txtImagen.getText());
+				// Se busca el codigo de barras y si no existe se crea un articulo nuevo
 
+				if (articuloService.findByCodigoBarras(articulo.getCodigoBarras()).getId() != null) {
+
+					articulo = articuloService.findByCodigoBarras(articulo.getCodigoBarras());
+					articulo.actualizarStock(Integer.parseInt(txtCantidad.getText()));
+
+				} else {
+					articulo.setCodigoBarras(txtCodigo.getText());
+					articulo.setProductogenerico(cmbTipo.getValue());
+					articulo.setColor(cmbColor.getValue());
+					articulo.setTalla(cmbTalla.getValue());
+					articulo.setStock(Integer.parseInt(txtCantidad.getText()));
+				}
+				articuloService.save(articulo);
+				lp.setArticulo(articulo);
+				Lineapedido newLp = lineaPedidoService.save(lp);
+
+				alert.setContentText("Añadido a linea pedido: " + articulo.getProductogenerico().getNombre()
+						+ ". Talla: " + articulo.getTalla() + ".Color: " + articulo.getColor() + ". \n=> Cantidad: "
+						+ newLp.getCantidad() + " (Nuevo stock total: " + articulo.getStock() + ")");
+				cargarListaPedido();
 			}
-			articuloService.save(articulo);
-			lp.setArticulo(articulo);
-			Lineapedido newLp = lineaPedidoService.save(lp);
-
-			alert.setContentText("Añadido a linea pedido: " + articulo.getProductogenerico().getNombre() + ". Talla: "
-					+ articulo.getTalla() + ".Color: " + articulo.getColor() + ". \n=> Cantidad: " + newLp.getCantidad()
-					+ " (Nuevo stock total: " + articulo.getStock() + ")");
 		}
-
-		cargarListaPedido();
-
 	}
 
 	private void saveUpdt(Articulo a, Alert alert) {
@@ -370,26 +358,25 @@ public class LineaPedidoController implements Initializable {
 	}
 
 	private void loadCmbPedido() {
-	
+		cmbPedido.getItems().clear();
 		pedidosList.addAll(pedidoService.findAll());
 		cmbPedido.setItems(pedidosList);
 	}
 
 	private void loadCmbTipo() {
-		
+		cmbTipo.getItems().clear();
 		tiposList.addAll(prodGenService.findAll());
 		cmbTipo.setItems(tiposList);
 	}
 
 	private void loadCmbTalla() {
-		
+		ObservableList<String> tallasList = FXCollections.observableArrayList();
 		tallasList.addAll(articuloService.findTallas());
 		cmbTalla.setItems(tallasList);
 	}
 
 	private void loadCmbColor() {
-
-		
+		ObservableList<String> coloresList = FXCollections.observableArrayList();
 		coloresList.addAll(articuloService.findColores());
 		cmbColor.setItems(coloresList);
 	}
@@ -404,7 +391,7 @@ public class LineaPedidoController implements Initializable {
 		tablaLineasPedido.setItems(lineasPedidoList);
 
 		String costeTotalPedido = String.valueOf(pedidoService.costeTotal(cmbPedido.getValue()));
-		
+
 		lbCostePedido.setText("Coste total del pedido selecionado: " + costeTotalPedido);
 
 	}
@@ -422,7 +409,6 @@ public class LineaPedidoController implements Initializable {
 		txtCantidad.clear();
 		txtImagen.clear();
 
-		cargarArticulos();
 	}
 
 }

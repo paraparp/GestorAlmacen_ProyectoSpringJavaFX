@@ -1,6 +1,5 @@
 package com.paraparp.model.entities;
 
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -34,10 +33,8 @@ public class Articulo implements Serializable {
 	public Articulo() {
 	}
 
-
-	
-	public Articulo(String color, Productogenerico productogenerico, String talla, String codigoBarras,
-			 int stock, String foto, String detalles, List<Lineapedido> lineapedidos) {
+	public Articulo(String color, Productogenerico productogenerico, String talla, String codigoBarras, int stock,
+			String foto, String detalles, List<Lineapedido> lineapedidos) {
 		this.color = color;
 		this.productogenerico = productogenerico;
 		this.talla = talla;
@@ -59,7 +56,6 @@ public class Articulo implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getColor() {
 		return this.color;
@@ -98,7 +94,6 @@ public class Articulo implements Serializable {
 		this.codigoBarras = codigoBarras;
 	}
 
-
 	@Column(name = "stock")
 	public int getStock() {
 		return this.stock;
@@ -134,19 +129,17 @@ public class Articulo implements Serializable {
 	public void setLineapedidos(List<Lineapedido> lineapedidos) {
 		this.lineapedidos = lineapedidos;
 	}
-	
-	
+
 	public void actualizarStock(int cantidad) {
-		
+
 		this.stock = this.stock + cantidad;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Articulo [id=" + id + ", color=" + color + ", productogenerico=" + productogenerico + ", talla=" + talla
-				+ ", codigoBarras=" + codigoBarras +  ", stock=" + stock + ", foto="
-				+ foto + ", detalles=" + detalles + "]";
+				+ ", codigoBarras=" + codigoBarras + ", stock=" + stock + ", foto=" + foto + ", detalles=" + detalles
+				+ "]";
 	}
 
 }

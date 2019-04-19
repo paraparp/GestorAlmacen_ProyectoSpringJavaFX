@@ -12,7 +12,7 @@
 
 <Pane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.paraparp.controller.PrincipalController">
    <children>
-		<JFXTabPane blendMode="COLOR_BURN" cacheHint="SCALE_AND_ROTATE" prefHeight="753.0" prefWidth="1471.0" stylesheets="@../styles/tabBar.css">
+		<JFXTabPane fx:id="navBar" blendMode="COLOR_BURN" cacheHint="SCALE_AND_ROTATE" onMouseClicked="#cargarDatos" prefHeight="753.0" prefWidth="1471.0" stylesheets="@../styles/tabBar.css">
 			<tabs>
 				<Tab fx:id="tabPrincipal" text="Principal">
 					<fx:include fx:id="panePrincipal" source="Inicio.fxml" />
