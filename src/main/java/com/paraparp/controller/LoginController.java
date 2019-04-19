@@ -58,6 +58,8 @@ public class LoginController implements Initializable {
 
 		if (empleadoService.authenticacion(txtUser.getText(), txtPassword.getText())) {
 
+			Stage loginStage = (Stage) btnAcceso.getScene().getWindow();
+			loginStage.close();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constantes.PRINCIPAL_APP_PATH));
 			fxmlLoader.setControllerFactory(springContext::getBean);
 			Parent root = fxmlLoader.load();

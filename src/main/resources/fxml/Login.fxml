@@ -61,7 +61,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txtUser" focusColor="#00ff1e" labelFloat="true" prefHeight="25.0" prefWidth="192.0" unFocusColor="#15ff00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="txtUser" focusColor="#00ff1e" labelFloat="true" onAction="#login" prefHeight="25.0" prefWidth="192.0" style="-fx-text-inner-color: white;" unFocusColor="#15ff00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Usuario" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
@@ -82,7 +82,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <JFXPasswordField fx:id="txtPassword" focusColor="#37ff00" unFocusColor="#2afc00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <JFXPasswordField fx:id="txtPassword" focusColor="#37ff00" onAction="#login" style="-fx-text-inner-color: white;" unFocusColor="#2afc00" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="lbMsg" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
             <Label text="Login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <textFill>
