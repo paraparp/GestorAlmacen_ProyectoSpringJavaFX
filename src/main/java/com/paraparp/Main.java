@@ -19,7 +19,6 @@ public class Main extends Application {
 
 	private ConfigurableApplicationContext springContext;
 	private Parent rootNode;
-	private Stage st;
 
 	public static void main(final String[] args) {
 		Application.launch(args);

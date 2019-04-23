@@ -28,9 +28,9 @@ INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generi
 INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('9871904723453', '1', '1', 'Rojo', 'S');
 INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5656756475756', '1', '2', 'Amarillo', '41');
 INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5101067689767', '1', '1', 'Rojo', 'M');
---INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5019877678765', '1', '2', 'Naranja', '39');
---INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('7101987677191', '1', '3', 'Azul', 'L');
---INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('8091916769121', '1', '1', 'Verde', 'XS');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5019877678765', '1', '2', 'Naranja', '39');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('7101987677191', '1', '3', 'Azul', 'L');
+INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('8091916769121', '1', '1', 'Verde', 'XS');
 INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('9871904767633', '1', '1', 'Rojo', 'S');
 INSERT INTO `almacen`.`articulo` (`codigo_barras`,  `stock`, `id_producto_generico`, `color`, `talla`) VALUES ('5656756767556', '1', '2', 'Rosa', '41');
 
