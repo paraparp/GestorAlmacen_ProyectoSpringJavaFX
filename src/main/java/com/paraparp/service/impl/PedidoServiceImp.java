@@ -37,13 +37,13 @@ public class PedidoServiceImp implements PedidoService {
 	@Transactional
 	public Pedido findById(Long id) {
 
-		return pedidoDao.findOne(id);
+		return pedidoDao.getOne(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		pedidoDao.delete(id);
+		pedidoDao.deleteById(id);
 
 	}
 

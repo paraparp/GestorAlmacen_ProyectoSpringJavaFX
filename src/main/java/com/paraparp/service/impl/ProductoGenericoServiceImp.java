@@ -38,13 +38,13 @@ public class ProductoGenericoServiceImp implements ProductoGenericoService {
 	@Transactional
 	public Productogenerico findById(Long id) {
 
-		return productoGenericoDao.findOne(id);
+		return productoGenericoDao.getOne(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		productoGenericoDao.delete(id);
+		productoGenericoDao.deleteById(id);
 	}
 
 	@Override

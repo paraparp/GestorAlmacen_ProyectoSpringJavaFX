@@ -36,13 +36,13 @@ public class ProveedorServiceImp implements ProveedorService{
 	@Transactional
 	public Proveedor findById(Long id) {
 	
-		return proveedorDao.findOne(id);
+		return proveedorDao.getOne(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		proveedorDao.delete(id);
+		proveedorDao.deleteById(id);
 		
 	}
 

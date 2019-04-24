@@ -36,13 +36,13 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	@Transactional
 	public Empleado findById(Long id) {
 	
-		return empleadoDao.findOne(id);
+		return empleadoDao.getOne(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		empleadoDao.delete(id);
+		empleadoDao.deleteById(id);
 		
 	}
 

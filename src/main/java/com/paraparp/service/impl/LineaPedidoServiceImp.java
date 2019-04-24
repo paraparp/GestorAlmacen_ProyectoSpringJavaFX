@@ -51,13 +51,13 @@ public class LineaPedidoServiceImp implements LineaPedidoService {
 	@Transactional
 	public Lineapedido findById(Long id) {
 
-		return lineaPedidoDao.findOne(id);
+		return lineaPedidoDao.getOne(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		lineaPedidoDao.delete(id);
+		lineaPedidoDao.deleteById(id);
 
 	}
 

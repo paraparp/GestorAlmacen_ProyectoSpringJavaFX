@@ -38,7 +38,7 @@ public class ArticuloServiceImp implements ArticuloService {
 	@Transactional
 	public Articulo findById(Long id) {
 
-		return articuloDao.findOne(id);
+		return articuloDao.getOne(id);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class ArticuloServiceImp implements ArticuloService {
 
 	@Override
 	public void delete(Long id) {
-		articuloDao.delete(id);
+		articuloDao.deleteById(id);
 	}
 
 	@Override
