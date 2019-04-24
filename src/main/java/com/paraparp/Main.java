@@ -3,6 +3,8 @@ package com.paraparp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import com.paraparp.util.Constantes;
 
@@ -15,6 +17,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 @SpringBootApplication
+@PropertySources({
+    @PropertySource(value = "classpath:application.properties"),
+    @PropertySource(value = "file:external.properties", ignoreResourceNotFound = true)
+})
 public class Main extends Application {
 
 	private ConfigurableApplicationContext springContext;
